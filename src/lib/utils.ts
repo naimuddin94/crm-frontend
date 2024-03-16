@@ -10,12 +10,12 @@ import { CiUser } from "react-icons/ci";
 export const navigation = [
   { name: "Dashboard", icon: { name: LuLayoutDashboard, size: 20 } },
   {
-    name: "User Management",
+    name: "User",
     icon: { name: FaUserGraduate, size: 20 },
     child: ["Add User", "Manage Users"],
   },
   {
-    name: "Project Management",
+    name: "Project",
     icon: { name: MdOutlineWorkHistory, size: 22 },
     child: ["Add Project", "Manage Project"],
   },
@@ -86,6 +86,8 @@ export const permissions = [
     permissionsGroup: ["Add Office", "Update Office", "Delete Office"],
   },
 ];
+
+export const banks = ["AB Bank", "Dutch Bangla Bank", "City Bank", "Islami Bank", "One Bank"];
 
 export const convertToSlug = (text: string, replaceWith = "-") => {
   return text.toLowerCase().replace(/\s+/g, replaceWith);

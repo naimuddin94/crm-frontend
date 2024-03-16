@@ -1,4 +1,8 @@
-import { IButtonProps } from '../../types/types';
+import { ButtonHTMLAttributes } from "react";
+
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: string;
+}
 
 const Button = ({ children, ...props }: IButtonProps) => {
   return (

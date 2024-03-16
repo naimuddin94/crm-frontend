@@ -111,6 +111,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 if (menu.child) {
                   return (
                     <Navigation
+                      key={menu.name}
                       label={menu.name}
                       icon={<menu.icon.name size={menu.icon.size} />}
                       subNavigationList={menu.child}
@@ -118,7 +119,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 } else if (!menu.child) {
                   return (
-                    <li>
+                    <li key={menu.name}>
                       <NavLink
                         to="/"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${

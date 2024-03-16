@@ -9,8 +9,12 @@
 }
 
 @layer components {
-  .custom-input{
+  .custom-input {
     @apply w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary;
+  }
+
+  .input-group{
+    @apply flex flex-col md:flex-row justify-between gap-5 md:gap-8;
   }
 }
 
@@ -120,7 +124,9 @@ span.flatpickr-weekday,
 }
 .flatpickr-day.inRange {
   @apply dark:!shadow-7;
-  box-shadow: -5px 0 0 #EFF4FB, 5px 0 0 #EFF4FB;
+  box-shadow:
+    -5px 0 0 #eff4fb,
+    5px 0 0 #eff4fb;
 }
 .flatpickr-day.inRange,
 .flatpickr-day.prevMonthDay.inRange,
@@ -217,6 +223,4 @@ span.flatpickr-weekday,
   display: none !important;
 }
 
-
 /* My Custom CSS */
-

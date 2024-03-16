@@ -1,10 +1,10 @@
-import Breadcrumb from '../Breadcrumbs/Breadcrumb';
-import Button from '../Utility/Button';
+import Breadcrumb from "../Breadcrumbs/Breadcrumb";
+import Button from "../Utility/Button";
 
-const AddUser = () => {
+const AddUserForm = () => {
   return (
     <>
-      <Breadcrumb pageName={'Create Client'} />
+      <Breadcrumb pageName={"Create Client"} />
 
       <form>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -56,4 +56,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddUserForm;

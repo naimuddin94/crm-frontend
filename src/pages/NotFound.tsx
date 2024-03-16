@@ -4,10 +4,10 @@ const NotFound = () => {
   const navigate = useNavigate();
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-[url('/notFound.gif')] bg-no-repeat bg-cover bg-center">
-      <div className="flex flex-col items-center gap-5 bg-boxdark/30 p-10 rounded">
+      <div className="flex flex-col items-center gap-5 bg-gradient-to-t from-boxdark/30 p-10 rounded mt-[20%]">
         <button
           onClick={() => navigate("/")}
-          className="flex text-boxdark-2 items-center gap-2 px-6 py-2 rounded-xl bg-emerald-100 hover:brightness-90"
+          className="flex text-boxdark-2 items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-teal-400 to-yellow-200 hover:brightness-90"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const NotFound = () => {
           </svg>
           Go back
         </button>
-        <h1 className="text-3xl font-semibold text-slate-600">
+        <h1 className="text-3xl font-semibold text-slate-800">
           Oops page not found!
         </h1>
         <p className="text-black">Sorry, an unexpected error has occurred.</p>
