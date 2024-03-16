@@ -1,17 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../images/logo/softronixs.png';
-import { FormEvent } from 'react';
-import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
+import Logo from "../images/logo/softronixs.png";
+import { FormEvent } from "react";
 
 const SigninPage = () => {
-  const navigate = useNavigate();
-
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const email = form.email.value;
     const password = form.password.value;
-    
+    console.log({ email, password });
   };
 
   return (

@@ -13,12 +13,7 @@ import { banks } from "../../lib/utils";
 import FormHeading from "../../components/Utility/FormHeading";
 
 const AddUser = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<AddUserInput>();
+  const { register, handleSubmit, watch } = useForm<AddUserInput>();
   const onSubmit: SubmitHandler<AddUserInput> = (data) => console.log(data);
 
   const matchPassword = watch("password") === watch("confirm_password");
@@ -27,7 +22,7 @@ const AddUser = () => {
     <>
       <Breadcrumb pageName={"Add User"} />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <FormHeading heading="User registration form" />
           <div className="flex flex-col gap-5.5 p-6.5">
@@ -100,7 +95,7 @@ const AddUser = () => {
               <Input label="Routing Number" register={register} />
               <Input label="Mobile" register={register} />
             </div>
-            <div className="input-group">
+            <div className="input-group mb-3">
               <Select
                 icon={<CiCreditCard2 size={22} />}
                 label="Primary Payment Option"
