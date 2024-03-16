@@ -112,3 +112,30 @@ export const users = [
     nogod: "01847156087",
   },
 ];
+
+export const projects = [
+  {
+    _id: "38475698276",
+    customer: "Abul Kalam",
+    duration: "50 minutes",
+    location: "Dhaka",
+    project_title: "Ecommerce",
+    project_value: "1000",
+  },
+  {
+    _id: "38475698276",
+    customer: "Abul karim",
+    duration: "40 minutes",
+    location: "Rajshahi",
+    project_title: "Web Development",
+    project_value: "2000",
+  },
+  {
+    _id: "38475698276",
+    customer: "Md Hasibul",
+    duration: "30 minutes",
+    location: "Khulna",
+    project_title: "App  development",
+    project_value: "1500",
+  },
+];

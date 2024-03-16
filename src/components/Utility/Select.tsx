@@ -44,7 +44,7 @@ const Select = ({
             options.map((option) => (
               <option
                 key={option}
-                value={convertToSlug(option)}
+                value={label === "Customer" ? option : convertToSlug(option)}
                 className="text-body dark:text-bodydark"
               >
                 {option}

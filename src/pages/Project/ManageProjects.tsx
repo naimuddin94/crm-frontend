@@ -1,26 +1,32 @@
-import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
-import { users } from "../../lib/fakedata";
+import { Link } from "react-router-dom";
+import { projects } from "../../lib/fakedata";
 
-const ManageUsers = () => {
+const ManageProjects = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
-              <th className="min-w-[170px] py-4 px-4 font-medium text-black dark:text-white xl:pl-6">
-                Full Name
+              <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-6">
+                #
               </th>
-              <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                Email
+              <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white xl:pl-6">
+                Project Title
               </th>
-              <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                Contact Information
+              <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
+                Customer
               </th>
-              <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                Role
+              <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
+                Location
+              </th>
+              <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
+                Duration
+              </th>
+              <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
+                Value
               </th>
               <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
                 Action
@@ -28,27 +34,41 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users &&
-              users.map((user) => (
-                <tr key={user._id}>
+            {projects &&
+              projects.map((project, index) => (
+                <tr key={project._id}>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">{index + 1}</p>
+                  </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {`${user.first_name} ${user.last_name}`}
+                      {project.project_title}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{user.email}</p>
+                    <p className="text-black dark:text-white">
+                      {project.customer}
+                    </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{user.mobile}</p>
+                    <p className="text-black dark:text-white">
+                      {project.location}
+                    </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{user.role}</p>
+                    <p className="text-black dark:text-white">
+                      {project.duration}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {project.project_value}
+                    </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center">
-                      <Link to={`/update-role/${user._id}`}>
-                        <button className="hover:text-primary bg-blue-800 px-3 py-2.5  rounded-s-md">
+                      <Link to={`/update-role/${project._id}`}>
+                        <button className="hover:text-primary bg-blue-800 px-3 py-2.5 rounded-s-md">
                           <FaEdit className="mt-0" />
                         </button>
                       </Link>
@@ -79,7 +99,7 @@ const ManageUsers = () => {
                           />
                         </svg>
                       </button>
-                      <button className="hover:text-primary  bg-warning px-3 py-2.5  rounded-e-md">
+                      <button className="hover:text-primary  bg-warning px-3 py-2.5 rounded-e-md">
                         <LuView />
                       </button>
                     </div>
@@ -93,4 +113,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default ManageProjects;

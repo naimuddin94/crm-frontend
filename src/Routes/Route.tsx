@@ -6,6 +6,7 @@ import SigninPage from "../pages/SigninPage";
 import AddUser from "../pages/User/AddUser";
 import ManageUsers from "../pages/User/ManageUsers";
 import AddProject from "../pages/Project/AddProject";
+import ManageProjects from "../pages/Project/ManageProjects";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/project/add-project",
         element: <AddProject />,
+      },
+      {
+        path: "/project/manage-project",
+        element: <ManageProjects />,
       },
     ],
   },
