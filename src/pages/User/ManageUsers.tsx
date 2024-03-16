@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { users } from "../../lib/fakedata";
-import moment from "moment";
 
 const ManageUsers = () => {
   return (

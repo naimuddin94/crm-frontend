@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import SigninPage from "../pages/SigninPage";
 import AddUser from "../pages/User/AddUser";
 import ManageUsers from "../pages/User/ManageUsers";
-
+import AddProject from "../pages/Project/AddProject";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/user/manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "/project/add-project",
+        element: <AddProject />,
       },
     ],
   },

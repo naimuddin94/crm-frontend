@@ -38,7 +38,7 @@ const AddUser = () => {
               <Input label="Username" register={register} />
               <Select
                 label="Role"
-                options={["Admin", "Manager"]}
+                options={["Manager", "Admin"]}
                 register={register}
                 icon={<PiCrownDuotone size={22} />}
               />
