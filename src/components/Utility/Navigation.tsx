@@ -1,8 +1,8 @@
-import React, { ReactElement, useState } from 'react';
-import SidebarLinkGroup from '../Sidebar/SidebarLinkGroup';
-import { NavLink, useLocation } from 'react-router-dom';
-import SubNavigation from './SubNavigation';
-import { convertToSlug } from '../../lib/utils';
+import React, { ReactElement, useState } from "react";
+import SidebarLinkGroup from "../Sidebar/SidebarLinkGroup";
+import { NavLink, useLocation } from "react-router-dom";
+import SubNavigation from "./SubNavigation";
+import { convertToSlug } from "../../lib/utils";
 
 interface INavigationProps {
   label: string;
@@ -11,14 +11,12 @@ interface INavigationProps {
 }
 
 const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
-
   const location = useLocation();
-    const { pathname } = location;
-    
+  const { pathname } = location;
 
-  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
+  const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
   const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
+    storedSidebarExpanded === null ? true : storedSidebarExpanded === "true"
   );
 
   return (
@@ -34,7 +32,8 @@ const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
             <NavLink
               to="#"
               className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                (pathname.includes(convertToSlug(label))) && 'bg-graydark dark:bg-meta-4'
+                pathname.includes(convertToSlug(label)) &&
+                "bg-graydark dark:bg-meta-4"
               }`}
               onClick={(e) => {
                 e.preventDefault();
@@ -45,7 +44,7 @@ const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
               {label}
               <svg
                 className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
-                  open && 'rotate-180'
+                  open && "rotate-180"
                 }`}
                 width="20"
                 height="20"
@@ -64,7 +63,7 @@ const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
             {/* <!-- Dropdown Menu Start --> */}
             <div
               className={`translate transform overflow-hidden ${
-                !open && 'hidden'
+                !open && "hidden"
               }`}
             >
               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
