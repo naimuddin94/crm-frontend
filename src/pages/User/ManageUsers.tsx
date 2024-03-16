@@ -43,7 +43,7 @@ const ManageUsers = () => {
                     <p className="text-black dark:text-white">{user.mobile}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{user.role}</p>
+                    <p className="text-black dark:text-white">{`${user.role[0].toUpperCase() + user.role.slice(1)}`}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center">
