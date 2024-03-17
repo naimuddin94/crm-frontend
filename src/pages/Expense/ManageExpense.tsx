@@ -1,7 +1,7 @@
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { projects } from "../../lib/fakedata";
+import { expenses } from "../../lib/fakedata";
 
 const ManageExpense = () => {
   return (
@@ -14,19 +14,13 @@ const ManageExpense = () => {
                 #
               </th>
               <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white xl:pl-6">
-                Project Title
+                Project
               </th>
               <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
-                Customer
+                Payment Method
               </th>
               <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                Location
-              </th>
-              <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                Duration
-              </th>
-              <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                Value
+                Amount
               </th>
               <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
                 Action
@@ -34,40 +28,30 @@ const ManageExpense = () => {
             </tr>
           </thead>
           <tbody>
-            {projects &&
-              projects.map((project, index) => (
-                <tr key={project._id}>
+            {expenses &&
+              expenses.map((expense, index) => (
+                <tr key={expense._id}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">{index + 1}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {project.project_title}
+                      {expense.project}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {project.customer}
+                      {expense.payment_method}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {project.location}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {project.duration}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {project.project_value}
+                      {expense.amount}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center">
-                      <Link to={`/update-role/${project._id}`}>
+                      <Link to={`/update-role/${expense._id}`}>
                         <button className="hover:text-primary bg-blue-800 px-3 py-2.5 rounded-s-md">
                           <FaEdit className="mt-0" />
                         </button>
