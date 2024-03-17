@@ -29,7 +29,7 @@ const Select = ({
         </span>
 
         <select
-          {...register(convertToSlug(label), {
+          {...register(convertToSlug(label, "_"), {
             defaultValue: defaultOption,
           } as RegisterOptions)}
           onChange={(e) => setIsOptionSelected(!!e.target.value)}
@@ -44,7 +44,7 @@ const Select = ({
             options.map((option) => (
               <option
                 key={option}
-                value={label === "Customer" ? option : convertToSlug(option)}
+                value={option}
                 className="text-body dark:text-bodydark"
               >
                 {option}

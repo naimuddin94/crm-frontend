@@ -6,7 +6,6 @@ import Select from "../../components/Utility/Select";
 import Textarea from "../../components/Utility/Textarea";
 import Button from "../../components/Utility/Button";
 import { MdOutlineWorkOutline, MdPayments } from "react-icons/md";
-import { GoAlert } from "react-icons/go";
 
 interface AddExpenseInput {
   payment_method: string;
@@ -18,6 +17,7 @@ interface AddExpenseInput {
 const AddExpense = () => {
   const { register, handleSubmit } = useForm<AddExpenseInput>();
   const onSubmit: SubmitHandler<AddExpenseInput> = (data) => console.log(data);
+  
   return (
     <>
       <Breadcrumb pageName={"Add Expense"} />

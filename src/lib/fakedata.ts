@@ -115,7 +115,7 @@ export const users = [
 
 export const projects = [
   {
-    _id: "38475698276",
+    _id: "384756982761",
     customer: "Abul Kalam",
     duration: "50 minutes",
     location: "Dhaka",
@@ -123,7 +123,7 @@ export const projects = [
     project_value: "1000",
   },
   {
-    _id: "38475698276",
+    _id: "384756982762",
     customer: "Abul karim",
     duration: "40 minutes",
     location: "Rajshahi",
@@ -131,7 +131,7 @@ export const projects = [
     project_value: "2000",
   },
   {
-    _id: "38475698276",
+    _id: "384756982763",
     customer: "Md Hasibul",
     duration: "30 minutes",
     location: "Khulna",
@@ -139,7 +139,6 @@ export const projects = [
     project_value: "1500",
   },
 ];
-
 
 export const customers = [
   {
@@ -264,5 +263,15 @@ export const tasks = [
     task_alert_date: new Date("2024-03-17T15:00:00Z"),
     alert_type: "Notification",
     note: "This task involves making the final decisions on product packaging design.",
+  },
+];
+
+export const expenses = [
+  {
+    _id: "328971566",
+    payment_method: "Bank",
+    project: "Admin panel",
+    amount: 500,
+    note: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
   },
 ];

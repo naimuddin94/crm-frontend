@@ -12,6 +12,7 @@ import ManageCustomer from "../pages/Customer/ManageCustomer";
 import AddTask from "../pages/Task/AddTask";
 import ManageTasks from "../pages/Task/ManageTasks";
 import AddExpense from "../pages/Expense/AddExpense";
+import ManageExpense from "../pages/Expense/ManageExpense";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/expenses/add-expenses",
         element: <AddExpense />,
+      },
+      {
+        path: "/expenses/manage-expenses",
+        element: <ManageExpense />,
       },
     ],
   },
