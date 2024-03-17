@@ -10,6 +10,7 @@ import ManageProjects from "../pages/Project/ManageProjects";
 import AddCustomer from "../pages/Customer/AddCustomer";
 import ManageCustomer from "../pages/Customer/ManageCustomer";
 import AddTask from "../pages/Task/AddTask";
+import ManageTasks from "../pages/Task/ManageTasks";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/task/add-task",
         element: <AddTask />,
+      },
+      {
+        path: "/task/manage-task",
+        element: <ManageTasks />,
       },
     ],
   },

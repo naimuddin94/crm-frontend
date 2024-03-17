@@ -223,3 +223,46 @@ export const customers = [
     current_address: "444 Pine St",
   },
 ];
+
+export const tasks = [
+  {
+    _id: "1",
+    customer: "ABC Corp",
+    project: "Website Redesign",
+    task: "Design landing page",
+    task_date: new Date("2024-03-20T08:00:00Z"),
+    task_alert_date: new Date("2024-03-19T08:00:00Z"),
+    alert_type: "Email",
+    note: "This task involves creating the visual design for the landing page.",
+  },
+  {
+    _id: "2",
+    customer: "XYZ Corp",
+    project: "App Development",
+    task: "Implement user authentication",
+    task_date: new Date("2024-03-25T10:00:00Z"),
+    task_alert_date: new Date("2024-03-24T10:00:00Z"),
+    alert_type: "SMS",
+    note: "This task involves setting up user authentication functionality using OAuth.",
+  },
+  {
+    _id: "3",
+    customer: "LMN Corp",
+    project: "Marketing Campaign",
+    task: "Create social media graphics",
+    task_date: new Date("2024-03-22T12:00:00Z"),
+    task_alert_date: new Date("2024-03-21T12:00:00Z"),
+    alert_type: "Popup",
+    note: "This task involves designing engaging graphics for social media platforms.",
+  },
+  {
+    _id: "4",
+    customer: "PQR Corp",
+    project: "Product Launch",
+    task: "Finalize product packaging",
+    task_date: new Date("2024-03-18T15:00:00Z"),
+    task_alert_date: new Date("2024-03-17T15:00:00Z"),
+    alert_type: "Notification",
+    note: "This task involves making the final decisions on product packaging design.",
+  },
+];
