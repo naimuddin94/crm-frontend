@@ -1,7 +1,7 @@
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { projects, tasks } from "../../lib/fakedata";
+import { tasks } from "../../lib/fakedata";
 import moment from "moment";
 
 const ManageTasks = () => {
