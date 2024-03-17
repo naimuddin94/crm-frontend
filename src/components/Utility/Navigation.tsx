@@ -16,7 +16,7 @@ const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
 
   const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
   const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? true : storedSidebarExpanded === "true"
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
 
   return (

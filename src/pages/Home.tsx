@@ -2,7 +2,7 @@ import Card from "../components/shared/Card";
 
 const Home = () => {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
       <Card title="Total Users" value={1170} />
       <Card title="Total Customers" value={3} />
       <Card title="Total Project" value={31} />
