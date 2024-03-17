@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import SidebarLinkGroup from "../Sidebar/SidebarLinkGroup";
 import { NavLink, useLocation } from "react-router-dom";
 import SubNavigation from "./SubNavigation";
@@ -18,6 +18,13 @@ const Navigation = ({ label, icon, subNavigationList }: INavigationProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
+
+  useEffect(() => {
+    if (!sidebarExpanded) {
+      setSidebarExpanded(true);
+    }
+  }, [sidebarExpanded]);
+
 
   return (
     <SidebarLinkGroup
