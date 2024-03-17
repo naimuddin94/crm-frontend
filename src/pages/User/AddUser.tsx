@@ -43,9 +43,8 @@ const AddUser = () => {
                 icon={<PiCrownDuotone size={22} />}
               />
             </div>
-            <div className="input-group">
+            <div className="md:max-w-[50%] pr-5">
               <Input label="Password" register={register} />
-              <Input label="Confirm Password" register={register} />
             </div>
           </div>
           <FormHeading heading="Others details" borderY />

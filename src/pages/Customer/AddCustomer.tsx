@@ -42,7 +42,7 @@ const AddCustomer = () => {
               <Input label="Email" register={register} />
               <Input label="Phone Number" register={register} />
             </div>
-            <div className="md:max-w-[50%]">
+            <div className="md:max-w-[50%] pr-5">
               <Input label="Company Name" register={register} />
             </div>
           </div>

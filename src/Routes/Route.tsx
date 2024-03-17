@@ -9,6 +9,7 @@ import AddProject from "../pages/Project/AddProject";
 import ManageProjects from "../pages/Project/ManageProjects";
 import AddCustomer from "../pages/Customer/AddCustomer";
 import ManageCustomer from "../pages/Customer/ManageCustomer";
+import AddTask from "../pages/Task/AddTask";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/customer/manage-customer",
-        element: <ManageCustomer/>
+        element: <ManageCustomer />,
+      },
+      {
+        path: "/task/add-task",
+        element: <AddTask />,
       },
     ],
   },
