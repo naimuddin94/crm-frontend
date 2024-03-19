@@ -16,7 +16,7 @@ const ManageExpense = () => {
               <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white xl:pl-6">
                 Project
               </th>
-              <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
+              <th className="min-w-[130px] py-4 font-medium text-black dark:text-white">
                 Payment Method
               </th>
               <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">

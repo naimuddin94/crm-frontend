@@ -5,30 +5,43 @@ export interface AddUserInput {
   first_name: string;
   last_name: string;
   email: string;
-  phone_number: number;
+  phone_number: string | number;
   username: string;
   role: "admin" | "manager";
   password: string;
   confirm_password: string;
   father_name: string;
-  nid_number: number;
+  nid_number: string | number;
   birth_date: Date;
   gender: "male" | "female";
   marital_status: "married" | "unmarried";
-  marriage_date: Date;
+  marriage_date?: Date;
   permanent_address: string;
   current_address: string;
   bank_name: string;
   branch_name: string;
   account_name: string;
   account_number: string;
-  swift_code: number;
-  routing_number: number;
-  mobile: number;
+  swift_code: string | number;
+  routing_number: string | number;
+  mobile: string | number;
   primary_payment_options: "bank" | "bkash" | "nogod" | "roket";
-  bkash: number;
-  nogod: number;
-  roket: number;
+  bkash?: string | number;
+  nogod?: string | number;
+  roket?: string | number;
+}
+
+export interface IUser extends AddUserInput {
+  _id: string;
+}
+
+export interface IProject {
+  _id: string;
+  customer: string;
+  duration: string;
+  location: string;
+  project_title: string;
+  project_value: string;
 }
 
 export interface ISelectGroupProps {
@@ -37,4 +50,21 @@ export interface ISelectGroupProps {
   icon: ReactElement;
   defaultOption?: string;
   register: UseFormRegister<any>;
+}
+
+export interface ICustomer {
+  _id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  company_name?: string;
+  father_name: string;
+  nid_number: string;
+  birth_date: Date;
+  gender: "male" | "female";
+  bin: string;
+  advance_balance?: number;
+  permanent_address: string;
+  current_address: string;
 }
