@@ -35,13 +35,16 @@ export interface IUser extends AddUserInput {
   _id: string;
 }
 
-export interface IProject {
-  _id: string;
+export interface ProjectInput {
   customer: string;
-  duration: string;
-  location: string;
   project_title: string;
+  location: string;
+  duration: string;
   project_value: string;
+}
+
+export interface IProject extends ProjectInput {
+  _id: string;
 }
 
 export interface ISelectGroupProps {
@@ -67,4 +70,18 @@ export interface ICustomer {
   advance_balance?: number;
   permanent_address: string;
   current_address: string;
+}
+
+export interface AddTaskInput {
+  customer: string;
+  project: string;
+  task: string;
+  task_date: Date;
+  task_alert_date: Date;
+  alert_type: string;
+  note?: string;
+}
+
+export interface ITask extends AddTaskInput {
+  _id: string;
 }

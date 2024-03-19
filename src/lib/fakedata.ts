@@ -1,4 +1,4 @@
-import { ICustomer, IProject, IUser } from "../types/type";
+import { ICustomer, IProject, ITask, IUser } from "../types/type";
 
 export const users: IUser[] = [
   {
@@ -119,7 +119,7 @@ export const customers: ICustomer[] = [
   },
 ];
 
-export const tasks = [
+export const tasks: ITask[] = [
   {
     _id: "1",
     customer: "ABC Corp",

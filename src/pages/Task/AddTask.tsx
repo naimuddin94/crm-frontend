@@ -8,16 +8,9 @@ import Textarea from "../../components/Utility/Textarea";
 import Button from "../../components/Utility/Button";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
+import { AddTaskInput } from "../../types/type";
 
-interface AddTaskInput {
-  customer: string;
-  project: string;
-  task: string;
-  task_date: Date;
-  task_alert_date: Date;
-  alert_type: string;
-  note: number;
-}
+
 
 const AddTask = () => {
   const { register, handleSubmit } = useForm<AddTaskInput>();

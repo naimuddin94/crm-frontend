@@ -5,16 +5,10 @@ import Input from "../../components/Utility/Input";
 import Select from "../../components/Utility/Select";
 import Button from "../../components/Utility/Button";
 import { FaUserAlt } from "react-icons/fa";
+import { ProjectInput } from "../../types/type";
 
 const customers = ["Abul Kalam", "Sakib Al Hasan", "Tamim"];
 
-interface ProjectInput {
-  customer: string;
-  project_title: string;
-  location: string;
-  duration: number;
-  project_value: string;
-}
 
 const AddProject = () => {
   const { register, handleSubmit } = useForm<ProjectInput>();
