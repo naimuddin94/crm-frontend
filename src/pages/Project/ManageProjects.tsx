@@ -2,9 +2,9 @@ import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { projects } from "../../lib/fakedata";
-import Modal from "../../components/Utility/Modal";
 import { useState } from "react";
 import { IProject } from "../../types/type";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const ManageProjects = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -126,35 +126,11 @@ const ManageProjects = () => {
       </div>
 
       {/* Render the custom modal component */}
-      <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-4">Project Details</h2>
-          {selectedProject && (
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="font-bold">Customer:</p>
-                <p className="text-gray-700">{selectedProject.customer}</p>
-              </div>
-              <div>
-                <p className="font-bold">Duration:</p>
-                <p className="text-gray-700">{selectedProject.duration}</p>
-              </div>
-              <div>
-                <p className="font-bold">Location:</p>
-                <p className="text-gray-700">{selectedProject.location}</p>
-              </div>
-              <div>
-                <p className="font-bold">Project Title:</p>
-                <p className="text-gray-700">{selectedProject.project_title}</p>
-              </div>
-              <div>
-                <p className="font-bold">Project Value:</p>
-                <p className="text-gray-700">{selectedProject.project_value}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </Modal>
+      <ProjectDetailsModal
+        selectedProject={selectedProject}
+        showModal={openModal}
+        setShowModal={setOpenModal}
+      />
     </>
   );
 };
