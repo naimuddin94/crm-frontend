@@ -6,13 +6,9 @@ import Select from "../../components/Utility/Select";
 import Textarea from "../../components/Utility/Textarea";
 import Button from "../../components/Utility/Button";
 import { MdOutlineWorkOutline, MdPayments } from "react-icons/md";
+import { AddExpenseInput } from "../../types/type";
 
-interface AddExpenseInput {
-  payment_method: string;
-  project: string;
-  amount: number;
-  note: string;
-}
+
 
 const AddExpense = () => {
   const { register, handleSubmit } = useForm<AddExpenseInput>();

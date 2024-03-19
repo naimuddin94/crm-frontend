@@ -85,3 +85,14 @@ export interface AddTaskInput {
 export interface ITask extends AddTaskInput {
   _id: string;
 }
+
+export interface AddExpenseInput {
+  payment_method: string;
+  project: string;
+  amount: number;
+  note?: string;
+}
+
+export interface IExpense extends AddExpenseInput {
+  _id: string;
+}
