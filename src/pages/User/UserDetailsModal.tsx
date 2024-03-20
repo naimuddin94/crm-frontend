@@ -60,7 +60,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                   <span className="font-bold">Marital Status:</span>{" "}
                   {selectedUser.marital_status}
                 </p>
-                {selectedUser.marital_status === "married" && (
+                {selectedUser.marital_status === "Married" && (
                   <p>
                     <span className="font-bold">Marriage Date:</span>{" "}
                     {moment(selectedUser.marriage_date).format("YYYY-MM-DD")}
@@ -112,21 +112,21 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                 <p className="font-bold mb-1">Payment Information</p>
                 <p>
                   <span className="font-bold">Primary Payment Options:</span>{" "}
-                  {selectedUser.primary_payment_options}
+                  {selectedUser.primary_payment_option}
                 </p>
-                {selectedUser.primary_payment_options === "bkash" && (
+                {selectedUser.primary_payment_option === "Bkash" && (
                   <p>
                     <span className="font-bold">bKash Number:</span>{" "}
                     {selectedUser.bkash}
                   </p>
                 )}
-                {selectedUser.primary_payment_options === "nogod" && (
+                {selectedUser.primary_payment_option === "Nogod" && (
                   <p>
                     <span className="font-bold">Nogod Number:</span>{" "}
                     {selectedUser.nogod}
                   </p>
                 )}
-                {selectedUser.primary_payment_options === "roket" && (
+                {selectedUser.primary_payment_option === "Roket" && (
                   <p>
                     <span className="font-bold">Roket Number:</span>{" "}
                     {selectedUser.roket}

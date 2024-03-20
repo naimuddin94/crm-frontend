@@ -7,14 +7,14 @@ export interface AddUserInput {
   email: string;
   phone_number: string | number;
   username: string;
-  role: "admin" | "manager";
+  role: "Admin" | "Manager";
   password: string;
   confirm_password: string;
   father_name: string;
   nid_number: string | number;
   birth_date: Date;
-  gender: "male" | "female";
-  marital_status: "married" | "unmarried";
+  gender: "Male" | "Female";
+  marital_status: "Married" | "Unmarried";
   marriage_date?: Date;
   permanent_address: string;
   current_address: string;
@@ -25,7 +25,7 @@ export interface AddUserInput {
   swift_code: string | number;
   routing_number: string | number;
   mobile: string | number;
-  primary_payment_options: "bank" | "bkash" | "nogod" | "roket";
+  primary_payment_option: "Bank" | "Bkash" | "Nogod" | "Roket";
   bkash?: string | number;
   nogod?: string | number;
   roket?: string | number;

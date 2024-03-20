@@ -108,12 +108,12 @@ const AddUser = () => {
               <Select
                 icon={<CiCreditCard2 size={22} />}
                 label="Primary Payment Option"
-                options={["Bank", "BKash", "Nogod", "Roket"]}
+                options={["Bank", "Bkash", "Nogod", "Roket"]}
                 register={register}
               />
-              <Input label="Bkash" register={register} />
-              <Input label="Nogod" register={register} />
-              <Input label="Roket" register={register} />
+              <Input label="Bkash" register={register} required={false} />
+              <Input label="Nogod" register={register} required={false} />
+              <Input label="Roket" register={register} required={false} />
             </div>
             <Button type="submit">Save</Button>
           </div>

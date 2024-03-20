@@ -7,6 +7,7 @@ interface InputProps {
   placeholder?: string;
   defaultValue?: string;
   type?: string;
+  required?: boolean;
 }
 
 const Input = ({
@@ -15,6 +16,7 @@ const Input = ({
   placeholder,
   defaultValue,
   type = "text",
+  required = true,
 }: InputProps) => {
   return (
     <div className="flex-1">
@@ -27,7 +29,7 @@ const Input = ({
           placeholder ? placeholder : `Enter ${convertToSlug(label, " ")} here`
         }
         className="custom-input"
-        required
+        required={required}
       />
     </div>
   );

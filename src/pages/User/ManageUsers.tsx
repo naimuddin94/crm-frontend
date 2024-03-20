@@ -20,6 +20,8 @@ const ManageUsers = () => {
   const { data: users = [], isLoading, error } = useGetUsersQuery("users");
   const [deleteUserMutation] = useDeleteUserMutation();
 
+  console.log(selectedUser);
+
   const handleUserView = (user: IUser) => {
     setSelectedUser(user);
     setShowModal(true);
