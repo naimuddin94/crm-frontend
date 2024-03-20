@@ -36,8 +36,10 @@ const AddUser = () => {
 
   const onSubmit: SubmitHandler<AddUserInput> = async (data) => {
     try {
-      await addUserMutation(data);
-      toast.success("User added successfully");
+      await addUserMutation(data).then((res) => {
+        console.log(res);
+        toast.success("User added successfully");
+      });
       reset();
     } catch (error) {
       toast.error((error as Error).message);

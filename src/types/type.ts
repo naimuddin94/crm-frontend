@@ -24,7 +24,7 @@ export interface AddUserInput {
   account_number: string;
   swift_code: string | number;
   routing_number: string | number;
-  mobile: string | number;
+  mobile: string;
   primary_payment_option: "Bank" | "Bkash" | "Nogod" | "Roket";
   bkash?: string | number;
   nogod?: string | number;
