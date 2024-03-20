@@ -11,12 +11,22 @@ import Textarea from "../../components/Utility/Textarea";
 import { CiBank, CiCreditCard2 } from "react-icons/ci";
 import { banks } from "../../lib/utils";
 import FormHeading from "../../components/Utility/FormHeading";
+import { useCreateUserMutation } from "../../redux/features/userApi";
+import toast from "react-hot-toast";
 
 const AddUser = () => {
-  const { register, handleSubmit, watch } = useForm<AddUserInput>();
-  const onSubmit: SubmitHandler<AddUserInput> = (data) => console.log(data);
+  const { register, handleSubmit, reset } = useForm<AddUserInput>();
+  const [addUserMutation] = useCreateUserMutation();
 
-  const matchPassword = watch("password") === watch("confirm_password");
+  const onSubmit: SubmitHandler<AddUserInput> = async (data) => {
+    try {
+      await addUserMutation(data);
+      toast.success("User added successfully");
+      reset();
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+  };
 
   return (
     <>
@@ -71,7 +81,7 @@ const AddUser = () => {
             </div>
             <div className="input-group">
               <Textarea label="Permanent Address" register={register} />
-              <Textarea label="Current Address" register={register} />
+              <Textarea label="Present Address" register={register} />
             </div>
           </div>
           <FormHeading heading="Payment information" borderY />
@@ -101,13 +111,11 @@ const AddUser = () => {
                 options={["Bank", "BKash", "Nogod", "Roket"]}
                 register={register}
               />
-              <Input label="SWIFT Code" register={register} />
-              <Input label="Routing Number" register={register} />
-              <Input label="Mobile" register={register} />
+              <Input label="Bkash" register={register} />
+              <Input label="Nogod" register={register} />
+              <Input label="Roket" register={register} />
             </div>
-            <Button type="submit" disabled={!matchPassword}>
-              Save
-            </Button>
+            <Button type="submit">Save</Button>
           </div>
         </div>
       </form>

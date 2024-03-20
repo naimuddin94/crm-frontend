@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import Header from '../components/Header/index';
-import Sidebar from '../components/Sidebar/index';
-import { Outlet } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import Header from "../components/Header/index";
+import Sidebar from "../components/Sidebar/index";
+import { Outlet } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 const RootLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
 
   return (
     <>
@@ -36,18 +35,7 @@ const RootLayout = () => {
         </div>
         {/* <!-- ===== Page Wrapper End ===== --> */}
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };
