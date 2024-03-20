@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { ISelectGroupProps } from "../../types/type";
 import { convertToSlug } from "../../lib/utils";
-import { RegisterOptions } from "react-hook-form";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Select = ({
   label,
   options,
   icon,
   register,
-  defaultOption,
+  defaultValue,
 }: ISelectGroupProps) => {
+  const [selectedOption, setSelectedOption] = useState<string>(
+    defaultValue || ""
+  );
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
   useEffect(() => {
-    if (defaultOption) {
-      setIsOptionSelected(true);
-    }
-  }, [defaultOption]);
+    setSelectedOption(defaultValue || "");
+  }, [defaultValue]);
+
+  const changeTextColor = () => {
+    setIsOptionSelected(true);
+  };
 
   return (
     <div className="flex-1">
@@ -29,11 +32,13 @@ const Select = ({
         </span>
 
         <select
-          {...register(convertToSlug(label, "_"), {
-            defaultValue: defaultOption,
-          } as RegisterOptions)}
-          onChange={(e) => setIsOptionSelected(!!e.target.value)}
-          className={`relative z-20 w-full appearance-none rounded-md border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
+          {...register(convertToSlug(label, "_"))}
+          value={selectedOption}
+          onChange={(e) => {
+            setSelectedOption(e.target.value);
+            changeTextColor();
+          }}
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
@@ -51,8 +56,24 @@ const Select = ({
               </option>
             ))}
         </select>
-        <span className="absolute z-40 right-4 top-1/2 -translate-y-1/2">
-          <MdOutlineKeyboardArrowDown size={20} />
+
+        <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g opacity="0.8">
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+                fill="#637381"
+              ></path>
+            </g>
+          </svg>
         </span>
       </div>
     </div>

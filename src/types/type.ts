@@ -52,6 +52,7 @@ export interface ISelectGroupProps {
   options: string[];
   icon: ReactElement;
   defaultOption?: string;
+  defaultValue?: string;
   register: UseFormRegister<any>;
 }
 
