@@ -2,7 +2,7 @@ import Button from "../../components/Utility/Button";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import Input from "../../components/Utility/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AddUserInput, IUser } from "../../types/type";
+import { AddUserInput } from "../../types/type";
 import Select from "../../components/Utility/Select";
 import { PiCrownDuotone } from "react-icons/pi";
 import { FaMale } from "react-icons/fa";
@@ -14,33 +14,54 @@ import FormHeading from "../../components/Utility/FormHeading";
 import {
   useCreateUserMutation,
   useGetSingleUserQuery,
+  useUpdateUserMutation,
 } from "../../redux/features/userApi";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/Utility/Loader";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const AddUser = () => {
+  const { register, handleSubmit, reset } = useForm<AddUserInput>();
   const params = useParams();
-  const [user, setUser] = useState<IUser | null | undefined>(null);
-
-  const { data, isLoading } = useGetSingleUserQuery(params.id as string);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { data: user, isLoading } = useGetSingleUserQuery(params.id as string);
 
   useEffect(() => {
-    setUser(data);
-  }, [params.id, data]);
+    if (pathname === "/user/add-user") {
+      reset();
+    }
+  }, [pathname]);
 
-  const { register, handleSubmit, reset } = useForm<AddUserInput>();
-  const [addUserMutation] = useCreateUserMutation();
+  const [addUserFn] = useCreateUserMutation();
+  const [updateUserFn] = useUpdateUserMutation();
 
   const onSubmit: SubmitHandler<AddUserInput> = async (data) => {
     try {
-      await addUserMutation(data).then((res) => {
-        console.log(res);
-        toast.success("User added successfully");
-      });
-      reset();
+      if (params.id) {
+        await updateUserFn({ id: params.id, newUser: data }).then(
+          (res: any) => {
+            if (res?.data) {
+              toast.success("User Updated successfully");
+              reset();
+              navigate("/user/manage-users");
+            } else if (res?.error) {
+              toast.error(res?.error?.data?.message);
+            }
+          }
+        );
+      } else if (!params.id) {
+        await addUserFn(data).then((res: any) => {
+          if (res?.data) {
+            toast.success("User added successfully");
+            reset();
+          } else if (res?.error) {
+            toast.error(res?.error?.data?.message);
+          }
+        });
+      }
     } catch (error) {
       toast.error((error as Error).message);
     }

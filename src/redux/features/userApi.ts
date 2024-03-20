@@ -25,6 +25,14 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    updateUser: builder.mutation({
+      query: ({ id, newUser }) => ({
+        url: `/users/${id}`,
+        method: "PUT",
+        body: newUser,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -33,4 +41,5 @@ export const {
   useGetSingleUserQuery,
   useDeleteUserMutation,
   useCreateUserMutation,
+  useUpdateUserMutation,
 } = userApi;

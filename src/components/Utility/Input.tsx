@@ -5,7 +5,7 @@ interface InputProps {
   label: string;
   register: UseFormRegister<any>;
   placeholder?: string;
-  defaultValue?: string;
+  defaultValue?: string | number | readonly string[];
   type?: string;
   required?: boolean;
 }
@@ -23,7 +23,7 @@ const Input = ({
       <label className="mb-3 block text-black dark:text-white">{label}</label>
       <input
         {...register(convertToSlug(label, "_"))}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue ?? ""}
         type={type}
         placeholder={
           placeholder ? placeholder : `Enter ${convertToSlug(label, " ")} here`
