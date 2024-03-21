@@ -5,10 +5,14 @@ const projectApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProjects: builder.query<IProject[], string>({
       query: () => "/projects",
-      providesTags: ["Project"],
+      providesTags: (result) =>
+        result
+          ? result.map(({ _id }) => ({ type: "Project", id: _id }))
+          : ["Project"],
     }),
     getSingleProject: builder.query<IProject, string>({
       query: (id) => `/projects/${id}`,
+      providesTags: (result, error, id) => [{ type: "Project", id }],
     }),
     deleteProject: builder.mutation<void, string>({
       query: (id) => ({
@@ -31,7 +35,7 @@ const projectApi = baseApi.injectEndpoints({
         method: "PUT",
         body: newProject,
       }),
-      invalidatesTags: ["Project"],
+      invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
     }),
   }),
 });

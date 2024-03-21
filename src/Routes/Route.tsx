@@ -41,6 +41,10 @@ const router = createBrowserRouter([
         element: <ManageProjects />,
       },
       {
+        path: "/update-project/:id",
+        element: <AddProject />,
+      },
+      {
         path: "/customer/add-customer",
         element: <AddCustomer />,
       },
@@ -50,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-customer/:id",
-        element: <AddCustomer/>
+        element: <AddCustomer />,
       },
       {
         path: "/task/add-task",

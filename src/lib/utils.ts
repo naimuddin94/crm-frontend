@@ -87,7 +87,13 @@ export const permissions = [
   },
 ];
 
-export const banks = ["AB Bank", "Dutch Bangla Bank", "City Bank", "Islami Bank", "One Bank"];
+export const banks = [
+  "AB Bank",
+  "Dutch Bangla Bank",
+  "City Bank",
+  "Islami Bank",
+  "One Bank",
+];
 
 export const convertToSlug = (text: string, replaceWith = "-") => {
   return text.toLowerCase().replace(/\s+/g, replaceWith);

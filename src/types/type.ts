@@ -49,7 +49,7 @@ export interface IProject extends ProjectInput {
 
 export interface ISelectGroupProps {
   label: string;
-  options: string[];
+  options: any[];
   icon: ReactElement;
   defaultOption?: string;
   defaultValue?: string;

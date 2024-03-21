@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ISelectGroupProps } from "../../types/type";
 import { convertToSlug } from "../../lib/utils";
 
-const Select = ({
+const ObjectSelectField = ({
   label,
   options,
   icon,
@@ -12,10 +12,13 @@ const Select = ({
   const [selectedOption, setSelectedOption] = useState<string>(
     defaultValue || ""
   );
-  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
+  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(
+    defaultValue !== undefined && defaultValue !== ""
+  );
 
   useEffect(() => {
     setSelectedOption(defaultValue || "");
+    setIsOptionSelected(defaultValue !== undefined && defaultValue !== "");
   }, [defaultValue]);
 
   const changeTextColor = () => {
@@ -48,11 +51,11 @@ const Select = ({
           {options &&
             options.map((option: any) => (
               <option
-                key={typeof option === "string" ? option : option.id}
-                value={typeof option === "string" ? option : option.id}
+                key={option.id}
+                value={option.id}
                 className="text-body dark:text-bodydark"
               >
-                {typeof option === "string" ? option : option.name}
+                {option.name}
               </option>
             ))}
         </select>
@@ -80,4 +83,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default ObjectSelectField;

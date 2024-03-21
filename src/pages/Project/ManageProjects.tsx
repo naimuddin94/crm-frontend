@@ -1,19 +1,74 @@
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { projects } from "../../lib/fakedata";
 import { useState } from "react";
-import { IProject } from "../../types/type";
+import { ICustomer, IProject } from "../../types/type";
 import ProjectDetailsModal from "./ProjectDetailsModal";
+import {
+  useDeleteProjectMutation,
+  useGetProjectsQuery,
+} from "../../redux/features/projectApi";
+import Loader from "../../components/Utility/Loader";
+import Swal from "sweetalert2";
+import { useGetCustomersQuery } from "../../redux/features/customerApi";
+import CustomerDetailsModal from "../Customer/CustomerDetailsModal";
 
 const ManageProjects = () => {
+  const { data: customers, isLoading: customerLoading } =
+    useGetCustomersQuery("Customer");
+  const { data: projects, isLoading } = useGetProjectsQuery("Project");
   const [openModal, setOpenModal] = useState(false);
+  const [openCustomerModal, setOpenCustomerModal] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
+    null
+  );
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
+  const [deleteProjectFn] = useDeleteProjectMutation();
 
   const handleLuViewClick = (project: IProject) => {
     setSelectedProject(project);
     setOpenModal(true);
   };
+
+  const handleCustomerView = (customerId: string) => {
+    const customer = customers?.find((customer) => customer._id === customerId);
+    if (customer) {
+      setSelectedCustomer(customer);
+      setOpenCustomerModal(true);
+    }
+  };
+
+  const handleDelete = (customerId: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteProjectFn(customerId).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
+
+  const handleCustomerName = (customerId: string) => {
+    const customer = customers?.find((customer) => customer._id === customerId);
+    return `${customer?.first_name} ${customer?.last_name}`;
+  };
+
+  if (isLoading || customerLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -57,8 +112,11 @@ const ManageProjects = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {project.customer}
+                      <p
+                        onClick={() => handleCustomerView(project.customer)}
+                        className="text-black dark:text-white hover:underline cursor-pointer"
+                      >
+                        {handleCustomerName(project.customer)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -78,12 +136,15 @@ const ManageProjects = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center">
-                        <Link to={`/update-role/${project._id}`}>
+                        <Link to={`/update-project/${project._id}`}>
                           <button className="hover:text-primary bg-blue-800 px-3 py-2.5 rounded-s-md">
                             <FaEdit className="mt-0" />
                           </button>
                         </Link>
-                        <button className="hover:text-primary  bg-danger px-3 py-[9px]">
+                        <button
+                          onClick={() => handleDelete(project._id)}
+                          className="hover:text-primary  bg-danger px-3 py-[9px]"
+                        >
                           <svg
                             className="fill-current"
                             width="18"
@@ -130,6 +191,12 @@ const ManageProjects = () => {
         selectedProject={selectedProject}
         showModal={openModal}
         setShowModal={setOpenModal}
+      />
+
+      <CustomerDetailsModal
+        selectedCustomer={selectedCustomer}
+        showModal={openCustomerModal}
+        setShowModal={setOpenCustomerModal}
       />
     </>
   );
