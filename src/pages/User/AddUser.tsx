@@ -33,6 +33,7 @@ const AddUser = () => {
     if (pathname === "/user/add-user") {
       reset();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const [addUserFn] = useCreateUserMutation();
