@@ -1,4 +1,4 @@
-import { ICustomer, IProject, ITask, IUser } from "../types/type";
+import { IProject, ITask, IUser } from "../types/type";
 
 export const users: IUser[] = [
   {
@@ -81,41 +81,6 @@ export const projects: IProject[] = [
     location: "Khulna",
     project_title: "App  development",
     project_value: "1500",
-  },
-];
-
-export const customers: ICustomer[] = [
-  {
-    _id: 1,
-    first_name: "Fatima",
-    last_name: "Pollard",
-    email: "kota@mailinator.com",
-    phone_number: "+1 (492) 223-7109",
-    company_name: "Newton Pearson Plc",
-    father_name: "Laith Monroe",
-    nid_number: "738",
-    birth_date: new Date("2005-07-02"),
-    gender: "male",
-    bin: "Recusandae Placeat",
-    advance_balance: 700,
-    permanent_address: "Adipisicing similiqu",
-    current_address: "Debitis aut laborum",
-  },
-  {
-    _id: 2,
-    first_name: "Sophia",
-    last_name: "Watkins",
-    email: "sophia@mailinator.com",
-    phone_number: "+1 (123) 456-7890",
-    company_name: "Smith & Co.",
-    father_name: "John Watkins",
-    nid_number: "123",
-    birth_date: new Date("1998-05-15"),
-    gender: "female",
-    bin: "Lorem Ipsum",
-    advance_balance: 500,
-    permanent_address: "123 Main St",
-    current_address: "456 Elm St",
   },
 ];
 
