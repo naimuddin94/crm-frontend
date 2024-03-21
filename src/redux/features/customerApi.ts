@@ -25,7 +25,7 @@ const customerApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Customer"],
     }),
-    updateUser: builder.mutation({
+    updateCustomer: builder.mutation({
       query: ({ id, newCustomer }) => ({
         url: `/customers/${id}`,
         method: "PUT",
@@ -41,5 +41,5 @@ export const {
   useGetSingleCustomerQuery,
   useDeleteCustomerMutation,
   useCreateCustomerMutation,
-  useUpdateUserMutation,
+  useUpdateCustomerMutation,
 } = customerApi;

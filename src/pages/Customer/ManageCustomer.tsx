@@ -1,10 +1,16 @@
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { customers } from "../../lib/fakedata";
 import { useState } from "react";
 import { ICustomer } from "../../types/type";
 import CustomerDetailsModal from "./CustomerDetailsModal";
+import {
+  useDeleteCustomerMutation,
+  useGetCustomersQuery,
+} from "../../redux/features/customerApi";
+import Loader from "../../components/Utility/Loader";
+import Error from "../../components/Utility/Error";
+import Swal from "sweetalert2";
 
 const ManageCustomer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +18,47 @@ const ManageCustomer = () => {
     null
   );
 
+  const {
+    data: customers = [],
+    isLoading,
+    error,
+  } = useGetCustomersQuery("Customer");
+  const [deleteCustomerFn] = useDeleteCustomerMutation();
+
   const handleCustomerView = (customer: ICustomer) => {
     setSelectedCustomer(customer);
     setShowModal(true);
   };
+
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteCustomerFn(id).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -33,11 +76,11 @@ const ManageCustomer = () => {
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                   Email
                 </th>
-                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
+                <th className="min-w-[170px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
                   Contact Information
                 </th>
                 <th className="min-w-[80px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
-                  Role
+                  Advance Balance
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white xl:pl-5">
                   Action
@@ -73,12 +116,15 @@ const ManageCustomer = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center">
-                        <Link to={`/update-role/${customer._id}`}>
+                        <Link to={`/update-customer/${customer._id}`}>
                           <button className="hover:text-primary bg-blue-800 px-3 py-2.5  rounded-s-md">
                             <FaEdit className="mt-0" />
                           </button>
                         </Link>
-                        <button className="hover:text-primary  bg-danger px-3 py-[9px]">
+                        <button
+                          onClick={() => handleDelete(customer._id)}
+                          className="hover:text-primary  bg-danger px-3 py-[9px]"
+                        >
                           <svg
                             className="fill-current"
                             width="18"

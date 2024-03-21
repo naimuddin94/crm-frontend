@@ -57,20 +57,20 @@ export interface ISelectGroupProps {
 }
 
 export interface ICustomer {
-  _id: number;
+  _id: string;
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
   company_name?: string;
   father_name: string;
-  nid_number: string;
+  nid_number: number;
   birth_date: Date;
   gender: "male" | "female";
   bin: string;
   advance_balance?: number;
   permanent_address: string;
-  current_address: string;
+  present_address: string;
 }
 
 export interface AddTaskInput {

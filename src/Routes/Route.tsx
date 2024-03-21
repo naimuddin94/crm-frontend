@@ -49,6 +49,10 @@ const router = createBrowserRouter([
         element: <ManageCustomer />,
       },
       {
+        path: "/update-customer/:id",
+        element: <AddCustomer/>
+      },
+      {
         path: "/task/add-task",
         element: <AddTask />,
       },
@@ -65,8 +69,8 @@ const router = createBrowserRouter([
         element: <ManageExpense />,
       },
       {
-        path: "/update-role/:id",
-        element: <AddUser />
+        path: "/update-user/:id",
+        element: <AddUser />,
       },
     ],
   },

@@ -66,8 +66,8 @@ const CustomerDetailsModal: React.FC<ProjectDetailsModalProps> = ({
                   {selectedCustomer.permanent_address}
                 </p>
                 <p>
-                  <span className="font-bold">Current Address:</span>{" "}
-                  {selectedCustomer.current_address}
+                  <span className="font-bold">Present Address:</span>{" "}
+                  {selectedCustomer.present_address}
                 </p>
               </div>
             </div>

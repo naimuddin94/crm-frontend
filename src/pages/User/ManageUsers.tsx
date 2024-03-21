@@ -17,8 +17,8 @@ const ManageUsers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
 
-  const { data: users = [], isLoading, error } = useGetUsersQuery("users");
-  const [deleteUserMutation] = useDeleteUserMutation();
+  const { data: users = [], isLoading, error } = useGetUsersQuery("Users");
+  const [deleteUserFn] = useDeleteUserMutation();
 
   const handleUserView = (user: IUser) => {
     setSelectedUser(user);
@@ -36,7 +36,7 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteUserMutation(userId).then(() => {
+        await deleteUserFn(userId).then(() => {
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
@@ -101,7 +101,7 @@ const ManageUsers = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center">
-                        <Link to={`/update-role/${user._id}`}>
+                        <Link to={`/update-user/${user._id}`}>
                           <button className="hover:text-primary bg-blue-800 px-3 py-2.5  rounded-s-md">
                             <FaEdit className="mt-0" />
                           </button>
