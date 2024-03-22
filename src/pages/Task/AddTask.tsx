@@ -1,19 +1,22 @@
-import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FaUserAlt } from "react-icons/fa";
+import { GoAlert } from "react-icons/go";
+import { MdOutlineWorkOutline } from "react-icons/md";
+import { FidgetSpinner } from "react-loader-spinner";
+import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import Button from "../../components/Utility/Button";
 import FormHeading from "../../components/Utility/FormHeading";
 import Input from "../../components/Utility/Input";
 import Select from "../../components/Utility/Select";
-import { FaUserAlt } from "react-icons/fa";
 import Textarea from "../../components/Utility/Textarea";
-import Button from "../../components/Utility/Button";
-import { MdOutlineWorkOutline } from "react-icons/md";
-import { GoAlert } from "react-icons/go";
 import { AddTaskInput } from "../../types/type";
 
-
-
 const AddTask = () => {
-  const { register, handleSubmit } = useForm<AddTaskInput>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<AddTaskInput>();
   const onSubmit: SubmitHandler<AddTaskInput> = (data) => console.log(data);
   return (
     <>
@@ -56,7 +59,21 @@ const AddTask = () => {
             <div className="input-group mb-3">
               <Textarea label="Note" register={register} />
             </div>
-            <Button type="submit">Save</Button>
+            <Button type="submit">
+              {isSubmitting ? (
+                <FidgetSpinner
+                  visible={true}
+                  height="30"
+                  width="30"
+                  ariaLabel="fidget-spinner-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="fidget-spinner-wrapper"
+                  backgroundColor="#EBF400"
+                />
+              ) : (
+                "Save"
+              )}
+            </Button>
           </div>
         </div>
       </form>

@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaUserAlt } from "react-icons/fa";
+import { FidgetSpinner } from "react-loader-spinner";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import Button from "../../components/Utility/Button";
@@ -25,12 +26,13 @@ interface ICustomerOption {
 }
 
 const AddProject = () => {
+  const { data, error } = useGetCustomersQuery("Customer");
   const {
-    data,
-    isLoading: customerLoading,
-    error,
-  } = useGetCustomersQuery("Customer");
-  const { register, handleSubmit, reset } = useForm<ProjectInput>();
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<ProjectInput>();
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const AddProject = () => {
   );
 
   useEffect(() => {
-    if (pathname === "/user/add-user") {
+    if (pathname === "/project/add-project") {
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +57,7 @@ const AddProject = () => {
     }));
   }, [data]);
 
-  if (customerLoading || isLoading) {
+  if (isLoading && pathname.includes("/update-project")) {
     return <Loader />;
   }
 
@@ -161,7 +163,21 @@ const AddProject = () => {
                 accept="image/*, application/pdf, .doc, .docx, .txt"
               />
             </div>
-            <Button type="submit">Save</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <FidgetSpinner
+                  visible={true}
+                  height="30"
+                  width="30"
+                  ariaLabel="fidget-spinner-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="fidget-spinner-wrapper"
+                  backgroundColor="#EBF400"
+                />
+              ) : (
+                "Save"
+              )}
+            </Button>
           </div>
         </div>
       </form>

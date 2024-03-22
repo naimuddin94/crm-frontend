@@ -1,29 +1,35 @@
-import Button from "../../components/Utility/Button";
-import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
-import Input from "../../components/Utility/Input";
+import moment from "moment";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AddUserInput } from "../../types/type";
-import Select from "../../components/Utility/Select";
-import { PiCrownDuotone } from "react-icons/pi";
+import toast from "react-hot-toast";
+import { CiBank, CiCreditCard2 } from "react-icons/ci";
 import { FaMale } from "react-icons/fa";
 import { GiBigDiamondRing } from "react-icons/gi";
-import Textarea from "../../components/Utility/Textarea";
-import { CiBank, CiCreditCard2 } from "react-icons/ci";
-import { banks } from "../../lib/utils";
+import { PiCrownDuotone } from "react-icons/pi";
+import { FidgetSpinner } from "react-loader-spinner";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import Button from "../../components/Utility/Button";
 import FormHeading from "../../components/Utility/FormHeading";
+import Input from "../../components/Utility/Input";
+import Loader from "../../components/Utility/Loader";
+import Select from "../../components/Utility/Select";
+import Textarea from "../../components/Utility/Textarea";
+import { banks } from "../../lib/utils";
 import {
   useCreateUserMutation,
   useGetSingleUserQuery,
   useUpdateUserMutation,
 } from "../../redux/features/userApi";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Loader from "../../components/Utility/Loader";
-import moment from "moment";
-import { useEffect } from "react";
+import { AddUserInput } from "../../types/type";
 
 const AddUser = () => {
-  const { register, handleSubmit, reset } = useForm<AddUserInput>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<AddUserInput>();
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -33,7 +39,7 @@ const AddUser = () => {
     if (pathname === "/user/add-user") {
       reset();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const [addUserFn] = useCreateUserMutation();
@@ -68,7 +74,7 @@ const AddUser = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading && pathname.includes("/update-user")) {
     return <Loader />;
   }
 
@@ -258,7 +264,21 @@ const AddUser = () => {
                 defaultValue={params?.id ? user?.roket?.toString() : ""}
               />
             </div>
-            <Button type="submit">Save</Button>
+            <Button type="submit">
+              {isSubmitting ? (
+                <FidgetSpinner
+                  visible={true}
+                  height="30"
+                  width="30"
+                  ariaLabel="fidget-spinner-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="fidget-spinner-wrapper"
+                  backgroundColor="#EBF400"
+                />
+              ) : (
+                "Save"
+              )}
+            </Button>
           </div>
         </div>
       </form>

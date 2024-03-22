@@ -1,21 +1,22 @@
-import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import moment from "moment";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaMale } from "react-icons/fa";
+import { FidgetSpinner } from "react-loader-spinner";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import Button from "../../components/Utility/Button";
 import FormHeading from "../../components/Utility/FormHeading";
 import Input from "../../components/Utility/Input";
+import Loader from "../../components/Utility/Loader";
 import Select from "../../components/Utility/Select";
-import { FaMale } from "react-icons/fa";
 import Textarea from "../../components/Utility/Textarea";
-import Button from "../../components/Utility/Button";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useCreateCustomerMutation,
   useGetSingleCustomerQuery,
   useUpdateCustomerMutation,
 } from "../../redux/features/customerApi";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import Loader from "../../components/Utility/Loader";
-import moment from "moment";
 
 interface AddCustomerInput {
   first_name: string;
@@ -34,7 +35,12 @@ interface AddCustomerInput {
 }
 
 const AddCustomer = () => {
-  const { register, handleSubmit, reset } = useForm<AddCustomerInput>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<AddCustomerInput>();
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -81,7 +87,7 @@ const AddCustomer = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading && pathname.includes("/update-customer")) {
     return <Loader />;
   }
 
@@ -184,7 +190,21 @@ const AddCustomer = () => {
                 defaultValue={params.id ? customer?.present_address : ""}
               />
             </div>
-            <Button type="submit">Save</Button>
+            <Button type="submit">
+              {isSubmitting ? (
+                <FidgetSpinner
+                  visible={true}
+                  height="30"
+                  width="30"
+                  ariaLabel="fidget-spinner-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="fidget-spinner-wrapper"
+                  backgroundColor="#EBF400"
+                />
+              ) : (
+                "Save"
+              )}
+            </Button>
           </div>
         </div>
       </form>
