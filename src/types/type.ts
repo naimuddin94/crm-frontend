@@ -41,6 +41,7 @@ export interface ProjectInput {
   location: string;
   duration: string;
   project_value: string;
+  project_documents?: FileList;
 }
 
 export interface IProject extends ProjectInput {

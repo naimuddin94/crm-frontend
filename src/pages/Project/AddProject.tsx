@@ -1,22 +1,23 @@
+import { useEffect, useMemo } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaUserAlt } from "react-icons/fa";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import Button from "../../components/Utility/Button";
+import Error from "../../components/Utility/Error";
 import FormHeading from "../../components/Utility/FormHeading";
 import Input from "../../components/Utility/Input";
-import Select from "../../components/Utility/Select";
-import Button from "../../components/Utility/Button";
 import Loader from "../../components/Utility/Loader";
+import Select from "../../components/Utility/Select";
+import fileUpload from "../../lib/fileUpload";
 import { useGetCustomersQuery } from "../../redux/features/customerApi";
-import { useEffect, useMemo } from "react";
-import { ProjectInput, ICustomer } from "../../types/type"; // Assuming Customer type is defined
-import Error from "../../components/Utility/Error";
 import {
   useCreateProjectMutation,
   useGetSingleProjectQuery,
   useUpdateProjectMutation,
 } from "../../redux/features/projectApi";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
+import { ICustomer, ProjectInput } from "../../types/type"; // Assuming Customer type is defined
 
 interface ICustomerOption {
   id: string;
@@ -62,11 +63,25 @@ const AddProject = () => {
     return <Error />;
   }
 
-  const onSubmit: SubmitHandler<ProjectInput> = async (data) => {
+  const onSubmit: SubmitHandler<ProjectInput> = async (FormData) => {
+    const { project_documents, ...remainData } = FormData;
+    console.log(project_documents);
     try {
       if (!customersOption) {
         return;
       }
+
+      let documents = [];
+
+      if (project_documents instanceof FileList) {
+        const uploadPromises = Array.from(project_documents).map(
+          async (document) => await fileUpload(document)
+        );
+
+        documents = await Promise.all(uploadPromises);
+      }
+
+      const data = { documents, ...remainData };
 
       if (params.id) {
         await updateProjectFn({ id: params.id, newProject: data }).then(
@@ -134,6 +149,16 @@ const AddProject = () => {
                 label="Project value"
                 register={register}
                 defaultValue={params?.id ? project?.project_value : ""}
+              />
+            </div>
+            <div className="pr-5 sm:max-w-[50%]">
+              <Input
+                label="Project Documents"
+                register={register}
+                type="file"
+                required={false}
+                multiple
+                accept="image/*, application/pdf, .doc, .docx, .txt"
               />
             </div>
             <Button type="submit">Save</Button>
