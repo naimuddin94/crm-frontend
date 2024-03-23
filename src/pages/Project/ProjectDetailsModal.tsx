@@ -67,7 +67,10 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
                         width="300"
                         height="400"
                       />
-                    ) : doc.endsWith(".jpg") || doc.endsWith(".png") ? (
+                    ) : doc.endsWith(".jpg") ||
+                      doc.endsWith(".png") ||
+                      doc.endsWith(".jpeg") ||
+                      doc.startsWith(".webp") ? (
                       <img
                         src={doc}
                         alt={`Document ${index + 1}`}

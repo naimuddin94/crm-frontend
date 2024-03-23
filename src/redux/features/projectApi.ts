@@ -7,7 +7,7 @@ const projectApi = baseApi.injectEndpoints({
       query: () => "/projects",
       providesTags: (result) =>
         result
-          ? result.map(({ _id }) => ({ type: "Project", id: _id }))
+          ? result.map(({ _id }) => ({ type: "Task", id: _id }))
           : ["Project"],
     }),
     getSingleProject: builder.query<IProject, string>({

@@ -18,12 +18,9 @@ import {
   useGetSingleProjectQuery,
   useUpdateProjectMutation,
 } from "../../redux/features/projectApi";
-import { ICustomer, ProjectInput } from "../../types/type"; // Assuming Customer type is defined
+import { ICustomer, ICustomerOption, ProjectInput } from "../../types/type"; // Assuming Customer type is defined
 
-interface ICustomerOption {
-  id: string;
-  name: string;
-}
+
 
 const AddProject = () => {
   const { data, error } = useGetCustomersQuery("Customer");

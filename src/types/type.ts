@@ -81,7 +81,7 @@ export interface AddTaskInput {
   task: string;
   task_date: Date;
   task_alert_date: Date;
-  alert_type: string;
+  alert_by: string;
   note?: string;
 }
 
@@ -98,4 +98,14 @@ export interface AddExpenseInput {
 
 export interface IExpense extends AddExpenseInput {
   _id: string;
+}
+
+export interface ICustomerOption {
+  id: string;
+  name: string;
+}
+
+export interface IProjectOption {
+  id: string;
+  name: string;
 }
