@@ -160,7 +160,7 @@ const AddProject = () => {
                 type="file"
                 required={false}
                 multiple
-                accept="image/*, application/pdf, .doc, .docx, .txt"
+                accept=".jpg, .jpeg, .webp, .png, .pdf"
               />
             </div>
             <Button type="submit" disabled={isSubmitting}>

@@ -46,6 +46,7 @@ export interface ProjectInput {
 
 export interface IProject extends ProjectInput {
   _id: string;
+  documents: string[];
 }
 
 export interface ISelectGroupProps {

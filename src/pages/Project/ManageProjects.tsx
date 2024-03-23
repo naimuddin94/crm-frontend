@@ -1,21 +1,20 @@
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { ICustomer, IProject } from "../../types/type";
-import ProjectDetailsModal from "./ProjectDetailsModal";
+import Swal from "sweetalert2";
+import Loader from "../../components/Utility/Loader";
+import { useGetCustomersQuery } from "../../redux/features/customerApi";
 import {
   useDeleteProjectMutation,
   useGetProjectsQuery,
 } from "../../redux/features/projectApi";
-import Loader from "../../components/Utility/Loader";
-import Swal from "sweetalert2";
-import { useGetCustomersQuery } from "../../redux/features/customerApi";
+import { ICustomer, IProject } from "../../types/type";
 import CustomerDetailsModal from "../Customer/CustomerDetailsModal";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const ManageProjects = () => {
-  const { data: customers, isLoading: customerLoading } =
-    useGetCustomersQuery("Customer");
+  const { data: customers } = useGetCustomersQuery("Customer");
   const { data: projects, isLoading } = useGetProjectsQuery("Project");
   const [openModal, setOpenModal] = useState(false);
   const [openCustomerModal, setOpenCustomerModal] = useState(false);
@@ -52,7 +51,7 @@ const ManageProjects = () => {
         await deleteProjectFn(customerId).then(() => {
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Project deleted successfully",
             icon: "success",
           });
         });
@@ -65,7 +64,7 @@ const ManageProjects = () => {
     return `${customer?.first_name} ${customer?.last_name}`;
   };
 
-  if (isLoading || customerLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 

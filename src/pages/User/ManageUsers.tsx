@@ -39,7 +39,7 @@ const ManageUsers = () => {
         await deleteUserFn(userId).then(() => {
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "User deleted successfully",
             icon: "success",
           });
         });

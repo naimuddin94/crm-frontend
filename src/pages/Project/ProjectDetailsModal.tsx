@@ -24,33 +24,62 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <Modal openModal={showModal} setOpenModal={setShowModal}>
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-4">Project Details</h2>
         {selectedProject && (
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="font-bold">Customer:</p>
-              <p className="text-gray-700">
-                {handleCustomerName(selectedProject.customer)}
-              </p>
+          <div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="font-bold">Customer:</p>
+                <p className="text-gray-700">
+                  {handleCustomerName(selectedProject.customer)}
+                </p>
+              </div>
+              <div>
+                <p className="font-bold">Duration:</p>
+                <p className="text-gray-700">{selectedProject.duration}</p>
+              </div>
+              <div>
+                <p className="font-bold">Location:</p>
+                <p className="text-gray-700">{selectedProject.location}</p>
+              </div>
+              <div>
+                <p className="font-bold">Project Title:</p>
+                <p className="text-gray-700">{selectedProject.project_title}</p>
+              </div>
+              <div>
+                <p className="font-bold">Project Value:</p>
+                <p className="text-gray-700">{selectedProject.project_value}</p>
+              </div>
             </div>
-            <div>
-              <p className="font-bold">Duration:</p>
-              <p className="text-gray-700">{selectedProject.duration}</p>
-            </div>
-            <div>
-              <p className="font-bold">Location:</p>
-              <p className="text-gray-700">{selectedProject.location}</p>
-            </div>
-            <div>
-              <p className="font-bold">Project Title:</p>
-              <p className="text-gray-700">{selectedProject.project_title}</p>
-            </div>
-            <div>
-              <p className="font-bold">Project Value:</p>
-              <p className="text-gray-700">{selectedProject.project_value}</p>
+            <div className="">
+              <p className="font-bold">Documents:</p>
+              <div className="grid grid-cols-2 gap-4">
+                {selectedProject.documents.map((doc, index) => (
+                  <div key={index}>
+                    {doc.endsWith(".pdf") ? (
+                      <embed
+                        src={doc}
+                        type="application/pdf"
+                        width="300"
+                        height="400"
+                      />
+                    ) : doc.endsWith(".jpg") || doc.endsWith(".png") ? (
+                      <img
+                        src={doc}
+                        alt={`Document ${index + 1}`}
+                        width="300"
+                        height="400"
+                      />
+                    ) : (
+                      <p>Unsupported file format</p>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

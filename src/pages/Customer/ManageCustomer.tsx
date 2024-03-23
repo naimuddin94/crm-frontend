@@ -44,7 +44,7 @@ const ManageCustomer = () => {
         await deleteCustomerFn(id).then(() => {
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Customer deleted successfully",
             icon: "success",
           });
         });
