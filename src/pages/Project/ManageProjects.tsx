@@ -2,8 +2,8 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import Loader from "../../components/Utility/Loader";
+import { handleCustomerName, handleDelete } from "../../lib/utils";
 import { useGetCustomersQuery } from "../../redux/features/customerApi";
 import {
   useDeleteProjectMutation,
@@ -14,54 +14,35 @@ import CustomerDetailsModal from "../Customer/CustomerDetailsModal";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const ManageProjects = () => {
+  // get all customers and projects
   const { data: customers = [] } = useGetCustomersQuery("Customer");
   const { data: projects, isLoading } = useGetProjectsQuery("Project");
+
+  // project delete function from redux RTK
+  const [deleteProjectFn] = useDeleteProjectMutation();
+
+  // for showing modal
   const [openModal, setOpenModal] = useState(false);
   const [openCustomerModal, setOpenCustomerModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
     null
   );
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
-  const [deleteProjectFn] = useDeleteProjectMutation();
+  
 
-  const handleLuViewClick = (project: IProject) => {
+  // for view project model
+  const handleProjectView = (project: IProject) => {
     setSelectedProject(project);
     setOpenModal(true);
   };
 
+  // for view customer model
   const handleCustomerView = (customerId: string) => {
     const customer = customers?.find((customer) => customer._id === customerId);
     if (customer) {
       setSelectedCustomer(customer);
       setOpenCustomerModal(true);
     }
-  };
-
-  const handleDelete = (customerId: string) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteProjectFn(customerId).then(() => {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Project deleted successfully",
-            icon: "success",
-          });
-        });
-      }
-    });
-  };
-
-  const handleCustomerName = (customerId: string) => {
-    const customer = customers?.find((customer) => customer._id === customerId);
-    return `${customer?.first_name} ${customer?.last_name}`;
   };
 
   if (isLoading) {
@@ -115,7 +96,7 @@ const ManageProjects = () => {
                         onClick={() => handleCustomerView(project.customer)}
                         className="text-black dark:text-white hover:underline cursor-pointer"
                       >
-                        {handleCustomerName(project.customer)}
+                        {handleCustomerName(project.customer, customers)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -141,7 +122,9 @@ const ManageProjects = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => handleDelete(project._id)}
+                          onClick={() =>
+                            handleDelete(project._id, deleteProjectFn)
+                          }
                           className="hover:text-primary  bg-danger px-3 py-[9px]"
                         >
                           <svg
@@ -171,7 +154,7 @@ const ManageProjects = () => {
                           </svg>
                         </button>
                         <button
-                          onClick={() => handleLuViewClick(project)}
+                          onClick={() => handleProjectView(project)}
                           className="hover:text-primary  bg-warning px-3 py-2.5 rounded-e-md"
                         >
                           <LuView />

@@ -33,8 +33,11 @@ const AddUser = () => {
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  // get single user from redux store
   const { data: user, isLoading } = useGetSingleUserQuery(params.id as string);
 
+  // form reset when add new user
   useEffect(() => {
     if (pathname === "/user/add-user") {
       reset();
@@ -42,9 +45,11 @@ const AddUser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // user add and delete functionality
   const [addUserFn] = useCreateUserMutation();
   const [updateUserFn] = useUpdateUserMutation();
 
+  // user submit handler function
   const onSubmit: SubmitHandler<AddUserInput> = async (data) => {
     try {
       if (params.id) {

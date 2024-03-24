@@ -44,10 +44,13 @@ const AddCustomer = () => {
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  // get single customer from redux store
   const { data: customer, isLoading } = useGetSingleCustomerQuery(
     params.id as string
   );
 
+  // form reset with pathname
   useEffect(() => {
     if (pathname === "/customer/add-customer") {
       reset();
@@ -55,9 +58,11 @@ const AddCustomer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // customer add and update functionality
   const [addCustomerFn] = useCreateCustomerMutation();
   const [updateCustomerFn] = useUpdateCustomerMutation();
 
+  // customer submit handler function
   const onSubmit: SubmitHandler<AddCustomerInput> = async (data) => {
     try {
       if (params.id) {

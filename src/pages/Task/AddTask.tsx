@@ -30,8 +30,9 @@ import {
 } from "../../types/type";
 
 const AddTask = () => {
-  const { data: customers } = useGetCustomersQuery("Customer");
-  const { data: projects } = useGetProjectsQuery("Project");
+  // get all customers and projects
+  const { data: customers = [] } = useGetCustomersQuery("Customer");
+  const { data: projects = [] } = useGetProjectsQuery("Project");
 
   const {
     register,
@@ -42,8 +43,11 @@ const AddTask = () => {
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  // get single task
   const { data: task, isLoading } = useGetSingleTaskQuery(params.id as string);
 
+  // create customer options for select field
   const customersOption = useMemo(() => {
     return customers?.map((customer: ICustomer) => ({
       id: customer._id,
@@ -51,6 +55,7 @@ const AddTask = () => {
     }));
   }, [customers]);
 
+  // create project options for select field
   const projectOption = useMemo(() => {
     return projects?.map((project: IProject) => ({
       id: project._id,
@@ -58,6 +63,7 @@ const AddTask = () => {
     }));
   }, [projects]);
 
+  // form reset with pathname
   useEffect(() => {
     if (pathname === "/task/add-task") {
       reset();
@@ -65,6 +71,7 @@ const AddTask = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // task add and update functionality
   const [addTaskFn] = useCreateTaskMutation();
   const [updateTaskFn] = useUpdateTaskMutation();
 

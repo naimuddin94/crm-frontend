@@ -10,7 +10,7 @@ import {
 } from "../../redux/features/customerApi";
 import Loader from "../../components/Utility/Loader";
 import Error from "../../components/Utility/Error";
-import Swal from "sweetalert2";
+import { handleDelete } from "../../lib/utils";
 
 const ManageCustomer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +18,7 @@ const ManageCustomer = () => {
     null
   );
 
+  // get all customers and customer delete function from redux 
   const {
     data: customers = [],
     isLoading,
@@ -25,32 +26,12 @@ const ManageCustomer = () => {
   } = useGetCustomersQuery("Customer");
   const [deleteCustomerFn] = useDeleteCustomerMutation();
 
+  // for view customer model
   const handleCustomerView = (customer: ICustomer) => {
     setSelectedCustomer(customer);
     setShowModal(true);
   };
 
-  const handleDelete = (id: string) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteCustomerFn(id).then(() => {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Customer deleted successfully",
-            icon: "success",
-          });
-        });
-      }
-    });
-  };
 
   if (isLoading) {
     return <Loader />;
@@ -122,7 +103,9 @@ const ManageCustomer = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => handleDelete(customer._id)}
+                          onClick={() =>
+                            handleDelete(customer._id, deleteCustomerFn)
+                          }
                           className="hover:text-primary  bg-danger px-3 py-[9px]"
                         >
                           <svg

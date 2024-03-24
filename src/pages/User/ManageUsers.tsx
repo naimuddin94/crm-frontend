@@ -1,17 +1,16 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { IUser } from "../../types/type";
-
-import UserDetailsModal from "./UserDetailsModal";
-import {
-  useGetUsersQuery,
-  useDeleteUserMutation,
-} from "../../redux/features/userApi";
-import Loader from "../../components/Utility/Loader";
 import Error from "../../components/Utility/Error";
-import Swal from "sweetalert2";
+import Loader from "../../components/Utility/Loader";
+import {
+  useDeleteUserMutation,
+  useGetUsersQuery,
+} from "../../redux/features/userApi";
+import UserDetailsModal from "./UserDetailsModal";
+import { handleDelete } from "../../lib/utils";
 
 const ManageUsers = () => {
   const [showModal, setShowModal] = useState(false);
@@ -20,31 +19,10 @@ const ManageUsers = () => {
   const { data: users = [], isLoading, error } = useGetUsersQuery("Users");
   const [deleteUserFn] = useDeleteUserMutation();
 
+  // for view user model
   const handleUserView = (user: IUser) => {
     setSelectedUser(user);
     setShowModal(true);
-  };
-
-  const handleDelete = (userId: string) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteUserFn(userId).then(() => {
-          Swal.fire({
-            title: "Deleted!",
-            text: "User deleted successfully",
-            icon: "success",
-          });
-        });
-      }
-    });
   };
 
   if (isLoading) {
@@ -107,7 +85,7 @@ const ManageUsers = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => handleDelete(user._id)}
+                          onClick={() => handleDelete(user._id, deleteUserFn)}
                           className="hover:text-primary  bg-danger px-3 py-[9px]"
                         >
                           <svg

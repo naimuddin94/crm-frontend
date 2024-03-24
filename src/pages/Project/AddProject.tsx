@@ -23,7 +23,7 @@ import { ICustomer, ICustomerOption, ProjectInput } from "../../types/type"; // 
 
 
 const AddProject = () => {
-  const { data, error } = useGetCustomersQuery("Customer");
+  const { data: customers, error } = useGetCustomersQuery("Customer");
   const {
     register,
     handleSubmit,
@@ -37,6 +37,7 @@ const AddProject = () => {
     params.id as string
   );
 
+  // from reset with pathname change
   useEffect(() => {
     if (pathname === "/project/add-project") {
       reset();
@@ -44,24 +45,20 @@ const AddProject = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // project add and delete function from redux RTK
   const [addProjectFn] = useCreateProjectMutation();
   const [updateProjectFn] = useUpdateProjectMutation();
 
+  // create customers options for select field
   const customersOption = useMemo(() => {
-    return data?.map((customer: ICustomer) => ({
+    return customers?.map((customer: ICustomer) => ({
       id: customer._id,
       name: `${customer.first_name} ${customer.last_name}`,
     }));
-  }, [data]);
+  }, [customers]);
 
-  if (isLoading && pathname.includes("/update-project")) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <Error />;
-  }
-
+  
+  // project submit handler functionality
   const onSubmit: SubmitHandler<ProjectInput> = async (FormData) => {
     const { project_documents, ...remainData } = FormData;
     console.log(project_documents);
@@ -108,6 +105,15 @@ const AddProject = () => {
       toast.error((error as Error).message);
     }
   };
+
+
+  if (isLoading && pathname.includes("/update-project")) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>

@@ -3,9 +3,13 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import Error from "../../components/Utility/Error";
 import Loader from "../../components/Utility/Loader";
+import {
+  handleCustomerName,
+  handleDelete,
+  handleProjectName,
+} from "../../lib/utils";
 import { useGetCustomersQuery } from "../../redux/features/customerApi";
 import { useGetProjectsQuery } from "../../redux/features/projectApi";
 import {
@@ -32,29 +36,23 @@ const ManageTasks = () => {
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
 
+  // get all customers, projects and tasks
   const { data: customers = [], isLoading: customerLoading } =
     useGetCustomersQuery("Customer");
   const { data: projects = [], isLoading: projectLoading } =
     useGetProjectsQuery("Project");
-
   const { data: tasks = [], isLoading, error } = useGetTasksQuery("Task");
+
+  // task delete function from redux RTK
   const [deleteTaskFn] = useDeleteTaskMutation();
 
+  // for view task model
   const handleTaskView = (task: ITask) => {
     setSelectedTask(task);
     setShowModal(true);
   };
 
-  const handleCustomerName = (customerId: string) => {
-    const customer = customers?.find((customer) => customer._id === customerId);
-    return `${customer?.first_name} ${customer?.last_name}`;
-  };
-
-  const handleProjectName = (projectId: string) => {
-    const project = projects?.find((project) => project._id === projectId);
-    return project?.project_title;
-  };
-
+  // for view task model
   const handleCustomerView = (customerId: string) => {
     const customer = customers?.find((customer) => customer._id === customerId);
     if (customer) {
@@ -63,34 +61,13 @@ const ManageTasks = () => {
     }
   };
 
+  // for view task model
   const handleProjectView = (projectId: string) => {
     const project = projects?.find((project) => project._id === projectId);
     if (project) {
       setSelectedProject(project);
       setOpenProjectModal(true);
     }
-  };
-
-  const handleDelete = (id: string) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteTaskFn(id).then(() => {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Task deleted successfully",
-            icon: "success",
-          });
-        });
-      }
-    });
   };
 
   if (isLoading || customerLoading || projectLoading) {
@@ -146,7 +123,7 @@ const ManageTasks = () => {
                         onClick={() => handleCustomerView(task.customer)}
                         className="text-black dark:text-white hover:underline cursor-pointer"
                       >
-                        {handleCustomerName(task.customer)}
+                        {handleCustomerName(task.customer, customers)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -154,7 +131,7 @@ const ManageTasks = () => {
                         onClick={() => handleProjectView(task.project)}
                         className="text-black dark:text-white hover:underline cursor-pointer"
                       >
-                        {handleProjectName(task.project)}
+                        {handleProjectName(task.project, projects)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -175,7 +152,7 @@ const ManageTasks = () => {
                           </button>
                         </Link>
                         <button
-                          onClick={() => handleDelete(task._id)}
+                          onClick={() => handleDelete(task._id, deleteTaskFn)}
                           className="hover:text-primary  bg-danger px-3 py-[9px]"
                         >
                           <svg

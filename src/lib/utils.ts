@@ -1,11 +1,12 @@
+import { CiUser } from "react-icons/ci";
 import { FaUserGraduate } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineWorkHistory } from "react-icons/md";
-import { SlNotebook } from "react-icons/sl";
-import { TbReportSearch } from "react-icons/tb";
 import { PiNotepad } from "react-icons/pi";
-import { CiUser } from "react-icons/ci";
+import { SlNotebook } from "react-icons/sl";
+import Swal from "sweetalert2";
+import { ICustomer, IProject } from "../types/type";
 
 export const navigation = [
   { name: "Dashboard", icon: { name: LuLayoutDashboard, size: 20 } },
@@ -34,17 +35,17 @@ export const navigation = [
     icon: { name: PiNotepad, size: 24 },
     child: ["Add Expenses", "Manage Expenses"],
   },
-  {
-    name: "Reports",
-    icon: { name: TbReportSearch, size: 24 },
-    child: [
-      "Sales Reports",
-      "Stock Reports",
-      "Purchase Reports",
-      "Due Report",
-      "Deposit Reports",
-    ],
-  },
+  // {
+  //   name: "Reports",
+  //   icon: { name: TbReportSearch, size: 24 },
+  //   child: [
+  //     "Sales Reports",
+  //     "Stock Reports",
+  //     "Purchase Reports",
+  //     "Due Report",
+  //     "Deposit Reports",
+  //   ],
+  // },
   {
     name: "Settings",
     icon: { name: IoSettingsOutline, size: 22 },
@@ -97,4 +98,42 @@ export const banks = [
 
 export const convertToSlug = (text: string, replaceWith = "-") => {
   return text.toLowerCase().replace(/\s+/g, replaceWith);
+};
+
+// delete function
+export const handleDelete = (
+  id: string,
+  deleteFn: (id: string) => Promise<any>
+) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await deleteFn(id).then(() => {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Deleted successfully",
+          icon: "success",
+        });
+      });
+    }
+  });
+};
+
+// get customer name
+export const handleCustomerName = (id: string, customers: ICustomer[]) => {
+  const customer = customers?.find((customer) => customer._id === id);
+  return `${customer?.first_name} ${customer?.last_name}`;
+};
+
+// get project name from id
+export const handleProjectName = (projectId: string, projects: IProject[]) => {
+  const project = projects?.find((project) => project._id === projectId);
+  return project?.project_title;
 };
