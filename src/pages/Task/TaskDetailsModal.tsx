@@ -1,5 +1,8 @@
-import Modal from "../../components/Utility/Modal";
 import moment from "moment";
+import Loader from "../../components/Utility/Loader";
+import Modal from "../../components/Utility/Modal";
+import { useGetCustomersQuery } from "../../redux/features/customerApi";
+import { useGetProjectsQuery } from "../../redux/features/projectApi";
 import { ITask } from "../../types/type";
 
 interface TaskDetailsModalProps {
@@ -13,6 +16,24 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
   setShowModal,
   selectedTask,
 }) => {
+  const { data: customers, isLoading } = useGetCustomersQuery("Customer");
+  const { data: projects, isLoading: projectLoading } =
+    useGetProjectsQuery("Project");
+
+  const handleCustomerName = (customerId: string) => {
+    const customer = customers?.find((customer) => customer._id === customerId);
+    return `${customer?.first_name} ${customer?.last_name}`;
+  };
+
+  const handleProjectName = (projectId: string) => {
+    const project = projects?.find((project) => project._id === projectId);
+    return project?.project_title;
+  };
+
+  if (isLoading || projectLoading) {
+    return <Loader />;
+  }
+
   return (
     <Modal openModal={showModal} setOpenModal={setShowModal}>
       <div className="max-w-[500px] lg:max-w-[400px] xl:max-w-[600px] p-6">
@@ -24,11 +45,11 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
                 <p className="font-bold mb-2">Task Information</p>
                 <p>
                   <span className="font-semibold">Customer:</span>{" "}
-                  {selectedTask.customer}
+                  {handleCustomerName(selectedTask.customer)}
                 </p>
                 <p>
                   <span className="font-semibold">Project:</span>{" "}
-                  {selectedTask.project}
+                  {handleProjectName(selectedTask.project)}
                 </p>
                 <p>
                   <span className="font-semibold">Task:</span>{" "}
@@ -44,7 +65,7 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
                 </p>
                 <p>
                   <span className="font-semibold">Alert Type:</span>{" "}
-                  {selectedTask.alert_type}
+                  {selectedTask.alert_by}
                 </p>
               </div>
             </div>

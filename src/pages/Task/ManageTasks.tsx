@@ -1,20 +1,105 @@
+import moment from "moment";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { tasks } from "../../lib/fakedata";
-import moment from "moment";
-import { useState } from "react";
-import { ITask } from "../../types/type";
+import Swal from "sweetalert2";
+import Error from "../../components/Utility/Error";
+import Loader from "../../components/Utility/Loader";
+import { useGetCustomersQuery } from "../../redux/features/customerApi";
+import { useGetProjectsQuery } from "../../redux/features/projectApi";
+import {
+  useDeleteTaskMutation,
+  useGetTasksQuery,
+} from "../../redux/features/taskApi";
+import { ICustomer, IProject, ITask } from "../../types/type";
+import CustomerDetailsModal from "../Customer/CustomerDetailsModal";
+import ProjectDetailsModal from "../Project/ProjectDetailsModal";
 import TaskDetailsModal from "./TaskDetailsModal";
 
 const ManageTasks = () => {
+  // for task model components
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+
+  // for customer model components
+  const [openCustomerModal, setOpenCustomerModal] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
+    null
+  );
+
+  // for customer model components
+  const [openProjectModal, setOpenProjectModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
+
+  const { data: customers = [], isLoading: customerLoading } =
+    useGetCustomersQuery("Customer");
+  const { data: projects = [], isLoading: projectLoading } =
+    useGetProjectsQuery("Project");
+
+  const { data: tasks = [], isLoading, error } = useGetTasksQuery("Task");
+  const [deleteTaskFn] = useDeleteTaskMutation();
 
   const handleTaskView = (task: ITask) => {
     setSelectedTask(task);
     setShowModal(true);
   };
+
+  const handleCustomerName = (customerId: string) => {
+    const customer = customers?.find((customer) => customer._id === customerId);
+    return `${customer?.first_name} ${customer?.last_name}`;
+  };
+
+  const handleProjectName = (projectId: string) => {
+    const project = projects?.find((project) => project._id === projectId);
+    return project?.project_title;
+  };
+
+  const handleCustomerView = (customerId: string) => {
+    const customer = customers?.find((customer) => customer._id === customerId);
+    if (customer) {
+      setSelectedCustomer(customer);
+      setOpenCustomerModal(true);
+    }
+  };
+
+  const handleProjectView = (projectId: string) => {
+    const project = projects?.find((project) => project._id === projectId);
+    if (project) {
+      setSelectedProject(project);
+      setOpenProjectModal(true);
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteTaskFn(id).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Task deleted successfully",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
+
+  if (isLoading || customerLoading || projectLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -57,13 +142,19 @@ const ManageTasks = () => {
                       <p className="text-black dark:text-white">{task.task}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {task.customer}
+                      <p
+                        onClick={() => handleCustomerView(task.customer)}
+                        className="text-black dark:text-white hover:underline cursor-pointer"
+                      >
+                        {handleCustomerName(task.customer)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {task.project}
+                      <p
+                        onClick={() => handleProjectView(task.project)}
+                        className="text-black dark:text-white hover:underline cursor-pointer"
+                      >
+                        {handleProjectName(task.project)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -83,7 +174,10 @@ const ManageTasks = () => {
                             <FaEdit className="mt-0" />
                           </button>
                         </Link>
-                        <button className="hover:text-primary  bg-danger px-3 py-[9px]">
+                        <button
+                          onClick={() => handleDelete(task._id)}
+                          className="hover:text-primary  bg-danger px-3 py-[9px]"
+                        >
                           <svg
                             className="fill-current"
                             width="18"
@@ -130,6 +224,18 @@ const ManageTasks = () => {
         selectedTask={selectedTask}
         setShowModal={setShowModal}
         showModal={showModal}
+      />
+
+      <ProjectDetailsModal
+        selectedProject={selectedProject}
+        showModal={openProjectModal}
+        setShowModal={setOpenProjectModal}
+      />
+
+      <CustomerDetailsModal
+        selectedCustomer={selectedCustomer}
+        showModal={openCustomerModal}
+        setShowModal={setOpenCustomerModal}
       />
     </>
   );

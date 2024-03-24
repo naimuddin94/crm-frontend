@@ -14,7 +14,7 @@ import CustomerDetailsModal from "../Customer/CustomerDetailsModal";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const ManageProjects = () => {
-  const { data: customers } = useGetCustomersQuery("Customer");
+  const { data: customers = [] } = useGetCustomersQuery("Customer");
   const { data: projects, isLoading } = useGetProjectsQuery("Project");
   const [openModal, setOpenModal] = useState(false);
   const [openCustomerModal, setOpenCustomerModal] = useState(false);
