@@ -7,8 +7,13 @@ const projectApi = baseApi.injectEndpoints({
       query: () => "/projects",
       providesTags: (result) =>
         result
-          ? result.map(({ _id }) => ({ type: "Task", id: _id }))
-          : ["Project"],
+          ? [
+              ...result.map(
+                ({ _id }) => ({ type: "Project", id: _id }) as const
+              ),
+              { type: "Project", id: "LIST" },
+            ]
+          : [{ type: "Project", id: "LIST" }],
     }),
     getSingleProject: builder.query<IProject, string>({
       query: (id) => `/projects/${id}`,
@@ -19,7 +24,7 @@ const projectApi = baseApi.injectEndpoints({
         url: `/projects/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Project"],
+      invalidatesTags: (_result, _error, id) => [{ type: "Project", id }],
     }),
     createProject: builder.mutation<IProject, Partial<IProject>>({
       query: (newProject) => ({
@@ -27,7 +32,7 @@ const projectApi = baseApi.injectEndpoints({
         method: "POST",
         body: newProject,
       }),
-      invalidatesTags: ["Project"],
+      invalidatesTags: [{ type: "Project", id: "LIST" }],
     }),
     updateProject: builder.mutation({
       query: ({ id, newProject }) => ({

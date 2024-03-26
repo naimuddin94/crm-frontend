@@ -1,18 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../layout/RootLayout";
-import NotFound from "../pages/NotFound";
-import Home from "../pages/Home";
-import SigninPage from "../pages/SigninPage";
-import AddUser from "../pages/User/AddUser";
-import ManageUsers from "../pages/User/ManageUsers";
-import AddProject from "../pages/Project/AddProject";
-import ManageProjects from "../pages/Project/ManageProjects";
 import AddCustomer from "../pages/Customer/AddCustomer";
+import CustomerDetails from "../pages/Customer/CustomerDetails";
 import ManageCustomer from "../pages/Customer/ManageCustomer";
-import AddTask from "../pages/Task/AddTask";
-import ManageTasks from "../pages/Task/ManageTasks";
 import AddExpense from "../pages/Expense/AddExpense";
 import ManageExpense from "../pages/Expense/ManageExpense";
+import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
+import AddProject from "../pages/Project/AddProject";
+import ManageProjects from "../pages/Project/ManageProjects";
+import SigninPage from "../pages/SigninPage";
+import AddTask from "../pages/Task/AddTask";
+import ManageTasks from "../pages/Task/ManageTasks";
+import AddUser from "../pages/User/AddUser";
+import ManageUsers from "../pages/User/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/customer/manage-customer",
         element: <ManageCustomer />,
+      },
+      {
+        path: "/customer-details/:customerId",
+        element: <CustomerDetails />,
       },
       {
         path: "/update-customer/:id",

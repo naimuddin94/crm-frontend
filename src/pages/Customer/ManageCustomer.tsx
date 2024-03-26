@@ -1,37 +1,22 @@
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { ICustomer } from "../../types/type";
-import CustomerDetailsModal from "./CustomerDetailsModal";
+import Error from "../../components/Utility/Error";
+import Loader from "../../components/Utility/Loader";
+import { handleDelete } from "../../lib/utils";
 import {
   useDeleteCustomerMutation,
   useGetCustomersQuery,
 } from "../../redux/features/customerApi";
-import Loader from "../../components/Utility/Loader";
-import Error from "../../components/Utility/Error";
-import { handleDelete } from "../../lib/utils";
 
 const ManageCustomer = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer | null>(
-    null
-  );
-
-  // get all customers and customer delete function from redux 
+  // get all customers and customer delete function from redux
   const {
     data: customers = [],
     isLoading,
     error,
   } = useGetCustomersQuery("Customer");
   const [deleteCustomerFn] = useDeleteCustomerMutation();
-
-  // for view customer model
-  const handleCustomerView = (customer: ICustomer) => {
-    setSelectedCustomer(customer);
-    setShowModal(true);
-  };
-
 
   if (isLoading) {
     return <Loader />;
@@ -134,12 +119,11 @@ const ManageCustomer = () => {
                             />
                           </svg>
                         </button>
-                        <button
-                          onClick={() => handleCustomerView(customer)}
-                          className="hover:text-primary  bg-warning px-3 py-2.5  rounded-e-md"
-                        >
-                          <LuView />
-                        </button>
+                        <Link to={`/customer-details/${customer._id}`}>
+                          <button className="hover:text-primary  bg-warning px-3 py-2.5  rounded-e-md">
+                            <LuView />
+                          </button>
+                        </Link>
                       </div>
                     </td>
                   </tr>
@@ -148,13 +132,6 @@ const ManageCustomer = () => {
           </table>
         </div>
       </div>
-
-      {/* Render the custom modal component */}
-      <CustomerDetailsModal
-        selectedCustomer={selectedCustomer}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
     </>
   );
 };

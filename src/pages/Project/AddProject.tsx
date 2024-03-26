@@ -20,8 +20,6 @@ import {
 } from "../../redux/features/projectApi";
 import { ICustomer, ICustomerOption, ProjectInput } from "../../types/type"; // Assuming Customer type is defined
 
-
-
 const AddProject = () => {
   const { data: customers, error } = useGetCustomersQuery("Customer");
   const {
@@ -33,6 +31,7 @@ const AddProject = () => {
   const params = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
   const { data: project, isLoading } = useGetSingleProjectQuery(
     params.id as string
   );
@@ -57,7 +56,6 @@ const AddProject = () => {
     }));
   }, [customers]);
 
-  
   // project submit handler functionality
   const onSubmit: SubmitHandler<ProjectInput> = async (FormData) => {
     const { project_documents, ...remainData } = FormData;
@@ -105,7 +103,6 @@ const AddProject = () => {
       toast.error((error as Error).message);
     }
   };
-
 
   if (isLoading && pathname.includes("/update-project")) {
     return <Loader />;

@@ -13,8 +13,12 @@
     @apply w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary;
   }
 
-  .input-group{
+  .input-group {
     @apply flex flex-col md:flex-row justify-between gap-5 md:gap-8;
+  }
+
+  .section-style {
+    @apply rounded-sm border border-stroke bg-white p-3 shadow-default dark:border-strokedark dark:bg-boxdark;
   }
 }
 
@@ -218,6 +222,33 @@ span.flatpickr-weekday,
 .custom-input-date-2::-webkit-calendar-picker-indicator {
   background-image: url(./images/icon/icon-arrow-down.svg);
 }
+
+/* Custom styles for React Tabs */
+.react-tabs {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.react-tabs__tab-list {
+  border-bottom: 2px solid #ccc;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.react-tabs__tab {
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.react-tabs__tab--selected {
+  border-bottom: 2px solid blue; /* Custom style for selected tab */
+  color: blue; /* Text color of the selected tab */
+}
+
 
 [x-cloak] {
   display: none !important;
