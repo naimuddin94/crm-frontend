@@ -3,9 +3,13 @@ import { useParams } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
+import CustomerActivity from "../../components/Customer/CustomerActivity";
 import CustomerBanner from "../../components/Customer/CustomerBanner";
-import CustomerProjects from "../../components/Customer/CustomerProjects";
+import CustomerDocuments from "../../components/Customer/CustomerDocuments";
 import CustomerLedger from "../../components/Customer/CustomerLedger";
+import CustomerPayments from "../../components/Customer/CustomerPayments";
+import CustomerProjects from "../../components/Customer/CustomerProjects";
+import CustomerSales from "../../components/Customer/CustomerSales";
 import Loader from "../../components/Utility/Loader";
 import { customerTabs } from "../../lib/utils";
 import { useGetSingleCustomerQuery } from "../../redux/features/customerApi";
@@ -58,10 +62,16 @@ const CustomerDetails = () => {
             <CustomerLedger />
           </TabPanel>
           <TabPanel>
-            <h2>Any content 3</h2>
+            <CustomerSales />
           </TabPanel>
           <TabPanel>
-            <h2>Any content 4</h2>
+            <CustomerDocuments />
+          </TabPanel>
+          <TabPanel>
+            <CustomerPayments />
+          </TabPanel>
+          <TabPanel>
+            <CustomerActivity />
           </TabPanel>
         </Tabs>
       </div>

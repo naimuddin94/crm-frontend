@@ -109,3 +109,12 @@ export interface IProjectOption {
   id: string;
   name: string;
 }
+
+export interface ICustomerLedger {
+  _id: string;
+  date: Date;
+  location: string;
+  payment_status: string;
+  payment_method?: string;
+  balance: number;
+}

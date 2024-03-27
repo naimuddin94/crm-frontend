@@ -153,3 +153,13 @@ export const handleProjectName = (projectId: string, projects: IProject[]) => {
   const project = projects?.find((project) => project._id === projectId);
   return project?.project_title;
 };
+
+
+// date initial range
+export const initialRange = [
+  {
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  },
+];
