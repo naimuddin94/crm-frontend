@@ -1,15 +1,18 @@
+import moment from "moment";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GiMoneyStack } from "react-icons/gi";
+import { ledgerInvoice } from "../../lib/fakedata";
 import { initialRange } from "../../lib/utils";
+import Checkbox from "../Utility/Checkbox";
 import DateRangeField from "../Utility/DateRangeField";
 import Select from "../Utility/Select";
-import { ledgerInvoice } from "../../lib/fakedata";
-import moment from "moment";
 
 const CustomerSales = () => {
-  const { register } = useForm();
+  const { register, watch } = useForm();
   const [selectedRange, setSelectedRange] = useState(initialRange);
+
+  const isChecked = watch("subscriptions");
   return (
     <div>
       <div
@@ -36,11 +39,16 @@ const CustomerSales = () => {
                 </div>
               </div>
               {/* subscription checkbox */}
-              <div className="text-center mt-5">
-                <label className="font-bold">
+              <div className="text-center mt-5 flex justify-center">
+                {/* <label className="font-bold">
                   <input type="checkbox" className="form-checkbox" value="" />
                   Subscriptions
-                </label>
+                </label> */}
+                <Checkbox
+                  label="Subscriptions"
+                  register={register}
+                  isChecked={isChecked}
+                />
               </div>
               {/* search and show entry select option */}
               <div className="md:flex justify-between items-center mt-5">
