@@ -6,10 +6,7 @@ import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import CustomerActivity from "../../components/Customer/CustomerActivity";
 import CustomerBanner from "../../components/Customer/CustomerBanner";
 import CustomerDocuments from "../../components/Customer/CustomerDocuments";
-import CustomerLedger from "../../components/Customer/CustomerLedger";
-import CustomerPayments from "../../components/Customer/CustomerPayments";
 import CustomerProjects from "../../components/Customer/CustomerProjects";
-import CustomerSales from "../../components/Customer/CustomerSales";
 import Loader from "../../components/Utility/Loader";
 import { customerTabs } from "../../lib/utils";
 import { useGetSingleCustomerQuery } from "../../redux/features/customerApi";
@@ -56,20 +53,20 @@ const CustomerDetails = () => {
           </TabList>
 
           <TabPanel>
-            <CustomerProjects />
+            {customerId && <CustomerProjects customerId={customerId} />}
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <CustomerLedger />
           </TabPanel>
           <TabPanel>
             <CustomerSales />
-          </TabPanel>
+          </TabPanel> */}
           <TabPanel>
             <CustomerDocuments />
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <CustomerPayments />
-          </TabPanel>
+          </TabPanel> */}
           <TabPanel>
             <CustomerActivity />
           </TabPanel>

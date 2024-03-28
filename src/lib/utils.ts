@@ -1,15 +1,13 @@
 import { CiUser } from "react-icons/ci";
 import { FaUserGraduate } from "react-icons/fa";
-import { HiMiniShoppingBag } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 
 import {
   MdOutlineWorkHistory,
-  MdPayments,
   MdWorkHistory,
 } from "react-icons/md";
-import { PiNotebookFill, PiNotepad } from "react-icons/pi";
+import { PiNotepad } from "react-icons/pi";
 import { SlNotebook } from "react-icons/sl";
 import { VscGraphLine } from "react-icons/vsc";
 import Swal from "sweetalert2";
@@ -62,11 +60,11 @@ export const navigation = [
 
 export const customerTabs = [
   { label: "Project", icon: { name: MdWorkHistory, size: 24 } },
-  { label: "Ledger", icon: { name: PiNotebookFill, size: 24 } },
-  { label: "Sales", icon: { name: HiMiniShoppingBag, size: 24 } },
+  // { label: "Ledger", icon: { name: PiNotebookFill, size: 24 } },
+  // { label: "Sales", icon: { name: HiMiniShoppingBag, size: 24 } },
   { label: "Documents & Notes", icon: { name: SlNotebook, size: 20 } },
-  { label: "Payment", icon: { name: MdPayments, size: 24 } },
-  { label: "Activities", icon: { name: VscGraphLine, size: 22 } },
+  // { label: "Payment", icon: { name: MdPayments, size: 24 } },
+  { label: "Tasks", icon: { name: VscGraphLine, size: 22 } },
 ];
 
 export const permissions = [

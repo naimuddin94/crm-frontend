@@ -1,8 +1,16 @@
 import { useGetProjectsQuery } from "../../redux/features/projectApi";
 import Loader from "../Utility/Loader";
 
-const CustomerProjects = () => {
-  const { data: projects, isLoading } = useGetProjectsQuery("Project");
+interface CustomerProjectsProps {
+  customerId: string;
+}
+
+const CustomerProjects = ({ customerId }: CustomerProjectsProps) => {
+  const { data: allProjects, isLoading } = useGetProjectsQuery("Project");
+
+  const projects = allProjects?.filter(
+    (project) => project.customer === customerId
+  );
 
   if (isLoading) {
     return <Loader />;
