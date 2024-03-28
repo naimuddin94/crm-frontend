@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaUserAlt } from "react-icons/fa";
@@ -14,6 +14,7 @@ import Input from "../../components/Utility/Input";
 import Loader from "../../components/Utility/Loader";
 import Select from "../../components/Utility/Select";
 import Textarea from "../../components/Utility/Textarea";
+import { customersOption, projectOptions } from "../../lib/utils";
 import { useGetCustomersQuery } from "../../redux/features/customerApi";
 import { useGetProjectsQuery } from "../../redux/features/projectApi";
 import {
@@ -21,13 +22,7 @@ import {
   useGetSingleTaskQuery,
   useUpdateTaskMutation,
 } from "../../redux/features/taskApi";
-import {
-  AddTaskInput,
-  ICustomer,
-  ICustomerOption,
-  IProject,
-  IProjectOption,
-} from "../../types/type";
+import { AddTaskInput } from "../../types/type";
 
 const AddTask = () => {
   // get all customers and projects
@@ -47,22 +42,6 @@ const AddTask = () => {
   // get single task
   const { data: task, isLoading } = useGetSingleTaskQuery(params.id as string);
 
-  // create customer options for select field
-  const customersOption = useMemo(() => {
-    return customers?.map((customer: ICustomer) => ({
-      id: customer._id,
-      name: `${customer.first_name} ${customer.last_name}`,
-    }));
-  }, [customers]);
-
-  // create project options for select field
-  const projectOption = useMemo(() => {
-    return projects?.map((project: IProject) => ({
-      id: project._id,
-      name: project.project_title,
-    }));
-  }, [projects]);
-
   // form reset with pathname
   useEffect(() => {
     if (pathname === "/task/add-task") {
@@ -75,6 +54,7 @@ const AddTask = () => {
   const [addTaskFn] = useCreateTaskMutation();
   const [updateTaskFn] = useUpdateTaskMutation();
 
+  // submit handler function
   const onSubmit: SubmitHandler<AddTaskInput> = async (data) => {
     try {
       if (params.id) {
@@ -120,14 +100,14 @@ const AddTask = () => {
               <Select
                 label="Customer"
                 icon={<FaUserAlt />}
-                options={customersOption as ICustomerOption[]}
+                options={customersOption(customers)}
                 register={register}
                 defaultValue={params?.id ? task?.customer : ""}
               />
               <Select
                 label="Project"
                 icon={<MdOutlineWorkOutline />}
-                options={projectOption as IProjectOption[]}
+                options={projectOptions(projects)}
                 register={register}
                 defaultValue={params?.id ? task?.project : ""}
               />

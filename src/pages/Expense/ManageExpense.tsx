@@ -1,19 +1,35 @@
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { LuView } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { expenses } from "../../lib/fakedata";
+import Loader from "../../components/Utility/Loader";
+import { handleDelete, handleProjectName } from "../../lib/utils";
+import {
+  useDeleteExpenseMutation,
+  useGetExpensesQuery,
+} from "../../redux/features/expenseApi";
+import { useGetProjectsQuery } from "../../redux/features/projectApi";
+import { IExpense, IProject } from "../../types/type";
 import ExpenseDetailsModal from "./ExpenseDetailsModal";
-import { IExpense } from "../../types/type";
-import { useState } from "react";
 
 const ManageExpense = () => {
+  const { data: expenses, isLoading } = useGetExpensesQuery("Expense");
+  const { data: projects, isLoading: projectLoading } =
+    useGetProjectsQuery("Project");
   const [showModal, setShowModal] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<IExpense | null>(null);
+
+  // delete functionality
+  const [deleteExpenseFn] = useDeleteExpenseMutation();
 
   const handleProjectView = (expense: IExpense) => {
     setSelectedExpense(expense);
     setShowModal(true);
   };
+
+  if (isLoading || projectLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -48,7 +64,10 @@ const ManageExpense = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {expense.project}
+                        {handleProjectName(
+                          expense.project,
+                          projects as IProject[]
+                        )}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -63,12 +82,17 @@ const ManageExpense = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <div className="flex items-center">
-                        <Link to={`/update-role/${expense._id}`}>
+                        <Link to={`/update-expense/${expense._id}`}>
                           <button className="hover:text-primary bg-blue-800 px-3 py-2.5 rounded-s-md">
                             <FaEdit className="mt-0" />
                           </button>
                         </Link>
-                        <button className="hover:text-primary  bg-danger px-3 py-[9px]">
+                        <button
+                          onClick={() =>
+                            handleDelete(expense._id, deleteExpenseFn)
+                          }
+                          className="hover:text-primary  bg-danger px-3 py-[9px]"
+                        >
                           <svg
                             className="fill-current"
                             width="18"

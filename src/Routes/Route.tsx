@@ -78,6 +78,10 @@ const router = createBrowserRouter([
         element: <ManageExpense />,
       },
       {
+        path: "update-expense/:id",
+        element: <AddExpense />,
+      },
+      {
         path: "/update-user/:id",
         element: <AddUser />,
       },

@@ -11,7 +11,7 @@ const expenseApi = baseApi.injectEndpoints({
           : ["Expense"],
     }),
     getSingleExpense: builder.query<IExpense, string>({
-      query: (id) => `/expense/${id}`,
+      query: (id) => `/expenses/${id}`,
       providesTags: (_result, _error, id) => [{ type: "Expense", id }],
     }),
     deleteExpense: builder.mutation<void, string>({
@@ -31,7 +31,7 @@ const expenseApi = baseApi.injectEndpoints({
     }),
     updateExpense: builder.mutation({
       query: ({ id, newExpense }) => ({
-        url: `/expense/${id}`,
+        url: `/expenses/${id}`,
         method: "PUT",
         body: newExpense,
       }),

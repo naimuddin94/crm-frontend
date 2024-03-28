@@ -154,7 +154,6 @@ export const handleProjectName = (projectId: string, projects: IProject[]) => {
   return project?.project_title;
 };
 
-
 // date initial range
 export const initialRange = [
   {
@@ -163,3 +162,19 @@ export const initialRange = [
     key: "selection",
   },
 ];
+
+// create customer options for select field
+export const customersOption = (customers: ICustomer[]) => {
+  return customers?.map((customer) => ({
+    id: customer._id,
+    name: `${customer.first_name} ${customer.last_name}`,
+  }));
+};
+
+// create project options for select field
+export const projectOptions = (projects: IProject[]) => {
+  return projects.map((project) => ({
+    id: project._id,
+    name: project.project_title,
+  }));
+};

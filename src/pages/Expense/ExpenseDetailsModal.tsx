@@ -1,5 +1,8 @@
+import Loader from "../../components/Utility/Loader";
 import Modal from "../../components/Utility/Modal";
-import { IExpense } from "../../types/type";
+import { handleProjectName } from "../../lib/utils";
+import { useGetProjectsQuery } from "../../redux/features/projectApi";
+import { IExpense, IProject } from "../../types/type";
 
 interface ExpenseDetailsModalProps {
   showModal: boolean;
@@ -12,6 +15,12 @@ const ExpenseDetailsModal: React.FC<ExpenseDetailsModalProps> = ({
   setShowModal,
   selectedExpense,
 }) => {
+  const { data: projects, isLoading } = useGetProjectsQuery("Project");
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Modal openModal={showModal} setOpenModal={setShowModal}>
       <div className="max-w-[500px] lg:max-w-[400px] xl:max-w-[600px] p-6">
@@ -27,7 +36,10 @@ const ExpenseDetailsModal: React.FC<ExpenseDetailsModalProps> = ({
                 </p>
                 <p>
                   <span className="font-semibold">Project:</span>{" "}
-                  {selectedExpense.project}
+                  {handleProjectName(
+                    selectedExpense.project,
+                    projects as IProject[]
+                  )}
                 </p>
                 <p>
                   <span className="font-semibold">Amount:</span>{" "}
