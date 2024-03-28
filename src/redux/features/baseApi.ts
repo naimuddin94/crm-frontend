@@ -8,7 +8,7 @@ const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://crm-api-indol.vercel.app/api/v1",
   }),
-  tagTypes: ["User", "Customer", "Project", "Task"],
+  tagTypes: ["User", "Customer", "Project", "Task", "Expense"],
   endpoints: () => ({}),
 });
 

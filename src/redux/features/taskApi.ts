@@ -7,7 +7,7 @@ const taskApi = baseApi.injectEndpoints({
       query: () => "/tasks",
       providesTags: (result) =>
         result
-          ? result.map(({ _id }) => ({ type: "Task", id: _id }))
+          ? result.map(({ _id }) => ({ type: "Expense", id: _id }))
           : ["Task"],
     }),
     getSingleTask: builder.query<ITask, string>({
@@ -16,14 +16,14 @@ const taskApi = baseApi.injectEndpoints({
     }),
     deleteTask: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/Tasks/${id}`,
+        url: `/tasks/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Task"],
     }),
     createTask: builder.mutation<ITask, Partial<ITask>>({
       query: (newTask) => ({
-        url: "/Tasks",
+        url: "/tasks",
         method: "POST",
         body: newTask,
       }),
