@@ -1,18 +1,27 @@
 import { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { FidgetSpinner } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../images/logo/softronixs.png";
-import { useUserLoginMutation } from "../redux/features/userApi";
+import { useUserLoginMutation } from "../redux/features/authApi";
+import { login } from "../redux/features/authSlice";
 
 const SigninPage = () => {
-  const [loginFn, { data, isLoading }] = useUserLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [loginFn, { isLoading }] = useUserLoginMutation();
 
-  console.log(data);
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const email = form.email.value;
     const password = form.password.value;
-    loginFn({ email, password });
+    loginFn({ email, password }).then((res: any) => {
+      if (res.data) {
+        dispatch(login(res.data.user));
+        navigate("/");
+      }
+    });
   };
 
   return (
@@ -233,11 +242,21 @@ const SigninPage = () => {
               </div>
 
               <div className="mb-5">
-                <input
-                  type="submit"
-                  value="Sign In"
-                  className="w-full cursor-pointer rounded-lg border border-primary/60 bg-primary/70 disabled:bg-primary/40 disabled:cursor-wait p-4 text-white transition hover:bg-opacity-90"
-                />
+                <button className="w-full cursor-pointer rounded-lg border border-primary/60 bg-primary/70 disabled:bg-primary/40 disabled:cursor-wait p-4 text-white transition hover:bg-opacity-90 flex justify-center items-center">
+                  {isLoading ? (
+                    <FidgetSpinner
+                      visible={true}
+                      height="30"
+                      width="30"
+                      ariaLabel="fidget-spinner-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="fidget-spinner-wrapper"
+                      backgroundColor="#EBF400"
+                    />
+                  ) : (
+                    "Login"
+                  )}
+                </button>
               </div>
             </form>
           </div>

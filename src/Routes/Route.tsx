@@ -14,14 +14,18 @@ import AddTask from "../pages/Task/AddTask";
 import ManageTasks from "../pages/Task/ManageTasks";
 import AddUser from "../pages/User/AddUser";
 import ManageUsers from "../pages/User/ManageUsers";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: (
+      <PrivateRoute>
+        <RootLayout />
+      </PrivateRoute>
+    ),
     errorElement: <NotFound />,
     children: [
-      
       {
         path: "/",
         element: <Home />,

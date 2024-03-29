@@ -1,11 +1,16 @@
+import { useSelector } from "react-redux";
 import Card from "../components/shared/Card";
 import { useGetCustomersQuery } from "../redux/features/customerApi";
 import { useGetExpensesQuery } from "../redux/features/expenseApi";
 import { useGetProjectsQuery } from "../redux/features/projectApi";
 import { useGetTasksQuery } from "../redux/features/taskApi";
 import { useGetUsersQuery } from "../redux/features/userApi";
+import { RootState } from "../redux/store/store";
 
 const Home = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  console.log(user);
   const { data: customers = [] } = useGetCustomersQuery("Customer");
   const { data: users = [] } = useGetUsersQuery("User");
   const { data: projects = [] } = useGetProjectsQuery("Project");
