@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserOne from "../../images/user/default_user.jpg";
 import { logout } from "../../redux/features/authSlice";
+import { RootState } from "../../redux/store/store";
 
 const DropdownUser = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -52,9 +54,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Md Naim Uddin
+            {user?.name}
           </span>
-          <span className="block text-xs">developer@gmail.com</span>
+          <span className="block text-xs">{user?.email}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
