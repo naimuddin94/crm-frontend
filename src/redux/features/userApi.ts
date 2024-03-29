@@ -3,6 +3,13 @@ import baseApi from "./baseApi";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    userLogin: builder.mutation({
+      query: (userCredentials) => ({
+        url: "/users/login",
+        method: "POST",
+        body: userCredentials,
+      }),
+    }),
     getUsers: builder.query<IUser[], string>({
       query: () => "/users",
       providesTags: ["User"],
@@ -37,6 +44,7 @@ const userApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useUserLoginMutation,
   useGetUsersQuery,
   useGetSingleUserQuery,
   useDeleteUserMutation,

@@ -1,14 +1,18 @@
+import { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/logo/softronixs.png";
-import { FormEvent } from "react";
+import { useUserLoginMutation } from "../redux/features/userApi";
 
 const SigninPage = () => {
+  const [loginFn, { data, isLoading }] = useUserLoginMutation();
+
+  console.log(data);
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const email = form.email.value;
     const password = form.password.value;
-    console.log({ email, password });
+    loginFn({ email, password });
   };
 
   return (
