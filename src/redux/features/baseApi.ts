@@ -7,6 +7,7 @@ const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://crm-api-indol.vercel.app/api/v1",
+    credentials: "include",
   }),
   tagTypes: ["User", "Customer", "Project", "Task", "Expense"],
   endpoints: () => ({}),
