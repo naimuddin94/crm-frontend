@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../../images/logo/softronixs.png";
-import Navigation from "../Utility/Navigation";
 import { navigation } from "../../lib/utils";
+import { RootState } from "../../redux/store/store";
+import Loader from "../Utility/Loader";
+import Navigation from "../Utility/Navigation";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -10,6 +13,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+  const { isLoading, user } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const { pathname } = location;
 
@@ -56,6 +60,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     }
   }, [sidebarExpanded]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+  
   return (
     <aside
       ref={sidebar}
@@ -108,6 +116,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard End --> */}
 
               {navigation.map((menu) => {
+                if (menu.name === "User" && user?.role !== "Admin") {
+                  return null;
+                }
                 if (menu.child) {
                   return (
                     <Navigation

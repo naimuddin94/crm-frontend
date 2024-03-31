@@ -15,6 +15,7 @@ import ManageTasks from "../pages/Task/ManageTasks";
 import AddUser from "../pages/User/AddUser";
 import ManageUsers from "../pages/User/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
+import ProtectByRole from "./ProtectByRole";
 
 const router = createBrowserRouter([
   {
@@ -32,11 +33,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/user/add-user",
-        element: <AddUser />,
+        element: (
+          <ProtectByRole role="Admin">
+            <AddUser />
+          </ProtectByRole>
+        ),
       },
       {
         path: "/user/manage-users",
-        element: <ManageUsers />,
+        element: (
+          <ProtectByRole role="Admin">
+            <ManageUsers />
+          </ProtectByRole>
+        ),
+      },
+
+      {
+        path: "/update-user/:id",
+        element: (
+          <ProtectByRole role="Admin">
+            <AddUser />
+          </ProtectByRole>
+        ),
       },
       {
         path: "/project/add-project",
@@ -85,10 +103,6 @@ const router = createBrowserRouter([
       {
         path: "update-expense/:id",
         element: <AddExpense />,
-      },
-      {
-        path: "/update-user/:id",
-        element: <AddUser />,
       },
     ],
   },

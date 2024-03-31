@@ -3,10 +3,7 @@ import { FaUserGraduate } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 
-import {
-  MdOutlineWorkHistory,
-  MdWorkHistory,
-} from "react-icons/md";
+import { MdOutlineWorkHistory, MdWorkHistory } from "react-icons/md";
 import { PiNotepad } from "react-icons/pi";
 import { SlNotebook } from "react-icons/sl";
 import { VscGraphLine } from "react-icons/vsc";
